@@ -5,7 +5,31 @@ using System.Web;
 
 namespace SchoolBBS.Models
 {
-	public class User
+	public class User : AbstractUser
 	{
+		public User(string userNumber):base(userNumber)
+		{
+			
+		}
+
+		public override bool AddUser()
+		{
+			throw new NotImplementedException();
+		}
+
+		public override bool DeleteUserByID()
+		{
+			throw new NotImplementedException();
+		}
+
+		public override bool GetUserByID()
+		{
+			throw new NotImplementedException();
+		}
+
+		public override bool UpdateUserByID()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
