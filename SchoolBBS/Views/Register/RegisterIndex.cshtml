@@ -8,10 +8,137 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>RegisterIndex</title>
+    <title>注册首页</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	@*<script src="~/Scripts/bootstrap.js"></script>*@
+	<style>
+		body {
+			width: auto;
+			height: auto;
+			margin: 0px auto;
+			padding: 0px;
+			background: url('../../Resource/back1.jpg') repeat;
+		}
+		h1{
+			text-align:center;
+		}
+		.form {
+			padding-top:10px;
+			padding-left:15px;
+			padding-right:15px;
+			width: 700px;
+			height:500px;
+			margin:80px auto;
+			background-color:white;
+			border-radius:10px;
+			border:1px solid #4c9797;
+		}
+		.form-group{
+			width:300px;
+			margin:30px auto;
+		}
+		.form-control{
+			/*margin-top:30px;*/
+		}
+		#submit_id {
+			margin-top: 30px;
+		}
+		.to_login{
+			margin-top:35px;
+			float:right;
+		}
+		span{
+			height:30px;
+			width:300px;
+			border:1px solid white;
+			color:red;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#submit_id").click(function () {
+				var spans = document.getElementsByTagName("span");
+				for (var i = 0; i < spans.length; i++) {
+					spans[i].innerText = "";
+				}
+				var validnumber = 20;
+				var usernumber = $("#user_number").val();
+				var nickname = $("#nick_name").val();
+				var password = $("#password").val();
+				var age = $("#age").val();
+				var subject = $("#subject_name").val();
+				if (usernumber == "") {
+					$("#userspan").text("用户名不能为空");
+					validnumber = validnumber - 1;
+				}
+				if (nickname == "") {
+					$("#nickspan").text("昵称不能为空");
+					validnumber = validnumber - 1;
+				}
+				if (password == "") {
+					$("#passspan").text("密码不能为空");
+					validnumber = validnumber - 1;
+				}
+				if (age == "") {
+					$("#agespan").text("年龄不能为空");
+					validnumber = validnumber - 1;
+				}
+				if (subject == "") {
+					$("#subjectspan").text("专业不能为空");
+					validnumber = validnumber - 1;
+				}
+				if (/^[0-9]{10}/.test(usernumber)!=true)
+				{
+					$("#userspan").text("用户名不合法");
+					validnumber = validnumber - 1;
+				}
+
+				if (validnumber == 20) {
+					$.ajax({
+						url: "/Register/RegisterAction",
+						data: {
+							"userNumber": usernumber,
+							"nickname": nickname,
+							"password": password,
+							"age": age,
+							"subject": subject
+						},
+						type: "POST",
+						dataType: "Json",
+						success: function (data) {
+							if (data == "该用户已注册")
+								alert("该用户已注册");
+							if (data == "注册成功") {
+								alert("注册成功");
+								window.location.href = "/Index/Index";
+								
+							}
+						},
+						error: function () {
+							alert("未知错误");
+							// todo
+						}
+					})
+				}
+			})
+		});
+	</script>
 </head>
 <body>
-    <div> 
-    </div>
+    <div class="form">
+		<h1>注册</h1>
+		<div class="form-group">
+			<span id="userspan"></span><input type="text" class="form-control" id="user_number" placeholder="学号/工号（10位数字）" />
+			<span id="nickspan"></span><input type="text" class="form-control" id="nick_name" placeholder="昵称（例：轻舞飞扬）" />
+			<span id="passspan"></span><input type="password" class="form-control" id="password" placeholder="密码（6-16位字符，区分大小写）" />
+			<span id="agespan"></span><input type="number" class="form-control" id="age" placeholder="年龄" />
+			<span id="subjectspan"></span><input type="text" class="form-control" id="subject_name" placeholder="专业（如软件工程）" />
+			<button id="submit_id" class="btn btn-default">确定</button>
+			<a href="/Login/LoginIndex" class="to_login">已有帐号？直接登录</a>
+		</div>
+		
+	</div>
 </body>
 </html>

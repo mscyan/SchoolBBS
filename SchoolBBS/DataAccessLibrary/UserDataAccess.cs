@@ -1,15 +1,52 @@
-﻿using System;
+﻿using DataAccessLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace SchoolBBS.DataAccessLibrary
 {
 	public class UserDataAccess
 	{
-		public bool AddUser()
+		//向用户表中添加一条记录
+		public bool AddUser(string userNumber, string nickname, string password, string age, string subject)
 		{
-			return false;
+			string sql = string.Format("insert into [User] values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')",
+				userNumber, nickname, password, "N", "M",age, subject, DateTime.Now.ToLocalTime().ToString(),1);
+			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
+			if (Convert.ToInt32(obj) > 0)
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+
+		//判断用户名为userNumber的用户是否存在
+		public bool isUserExist(string userNumber)
+		{
+			string sql = string.Format("select * from [User] where [userNumber] = '{0}'", userNumber);
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			if (dt.Rows.Count > 0)
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+
+		//判断用户名、密码是否都符合
+		public bool isUserExist(string userNumber,string password)
+		{
+			string sql = string.Format("select * from [User] where [userNumber] = '{0}' and [password] = '{1}'", userNumber,password);
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			if (dt.Rows.Count > 0)
+			{
+				return true;
+			}
+			else
+				return false;
 		}
 	}
 }
