@@ -12,10 +12,17 @@ namespace SchoolBBS.Models
 
 		}
 
+		private int logID;
 		private string logUserNumber;
 		private string logUserName;
 		private string logInfo;
 		private DateTime logTime;
+
+		public int LogID
+		{
+			get { return logID; }
+			set { logID = value; }
+		}
 
 		public string LogUserNumber
 		{
@@ -37,8 +44,8 @@ namespace SchoolBBS.Models
 
 		public DateTime LogTime
 		{
-			get { return LogTime; }
-			set { LogTime = value; }
+			get { return logTime; }
+			set { logTime = value; }
 		}
 
 		//添加操作到日志表中

@@ -23,7 +23,9 @@ namespace SchoolBBS.Controllers
 			{
 				if (uda.isUserExist(userNumber, password) == true)
 				{
-					Session["LoginUser"] = new User(userNumber);
+					HttpCookie cook = new HttpCookie("LoginUser", userNumber);
+					Response.Cookies.Add(cook);
+					new LogDataAccess().AddLog(userNumber, new UserDataAccess().GetUserByID(userNumber).NickName, "登录了系统");
 					return Json("登录正确");
 				}
 				else

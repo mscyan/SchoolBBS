@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using SchoolBBS.Models;
 
 namespace SchoolBBS.DataAccessLibrary
 {
@@ -29,9 +30,7 @@ namespace SchoolBBS.DataAccessLibrary
 			string sql = string.Format("select * from [User] where [userNumber] = '{0}'", userNumber);
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
 			if (dt.Rows.Count > 0)
-			{
 				return true;
-			}
 			else
 				return false;
 		}
@@ -47,6 +46,29 @@ namespace SchoolBBS.DataAccessLibrary
 			}
 			else
 				return false;
+		}
+
+		public User GetUserByID(string userNumber)
+		{
+			string sql = string.Format("select * from [User] where [userNumber] = '{0}'", userNumber);
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			if (dt.Rows.Count > 0)
+			{
+				User user = new User(
+					dt.Rows[0][0].ToString(),
+					dt.Rows[0][1].ToString(),
+					dt.Rows[0][2].ToString(),
+					dt.Rows[0][3].ToString(),
+					dt.Rows[0][4].ToString(),
+					int.Parse(dt.Rows[0][5].ToString()),
+					dt.Rows[0][6].ToString(),
+					DateTime.Parse(dt.Rows[0][7].ToString())
+					);
+				
+				return user;
+			}
+			else
+				return null;
 		}
 	}
 }

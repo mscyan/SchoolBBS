@@ -12,14 +12,45 @@ namespace SchoolBBS.Models
 
 		}
 
+		public Post(int community,string title,string content,string postUser,int hasPicture,string picturePath)
+		{
+			this.community = community;
+			this.title = title;
+			this.content = content;
+			if (content.Length > 30)
+				contentOverview = content.Substring(0, 30);
+			else
+			{
+				contentOverview = content;
+			}
+			this.postUser = postUser;
+			this.hasPicture = hasPicture;
+			this.picturePath = picturePath;
+		}
+
+		public Post(int postID, int community, string title, string content, string contentOverview, string postUser, DateTime postTime, int replyCount, DateTime lastReplyTime, int hasPicture, string picturePath)
+		{
+			this.postID = postID;
+			this.community = community;
+			this.title = title;
+			this.content = content;
+			this.contentOverview = contentOverview;
+			this.postUser = postUser;
+			this.postTime = postTime;
+			this.replyCount = replyCount;
+			this.lastReplyTime = lastReplyTime;
+			this.hasPicture = hasPicture;
+			this.picturePath = picturePath;
+		}
+
 		private int postID;				//贴子编号
-		private string community;		//所属社区
+		private int community;		//所属社区
 		private string title;			//标题
 		private string content;         //发表内容
 		private string contentOverview; //内容概要
 		private string postUser;        //发表人
 		private DateTime postTime;      //发表时间
-		private int replyCount;		//回复数量
+		private int replyCount;			//回复数量
 		private DateTime lastReplyTime; //最后回复时间
 		private int hasPicture;         //是否有图片
 		private string picturePath;		//图片路径
@@ -30,7 +61,7 @@ namespace SchoolBBS.Models
 			set { postID = value; }
 		}
 
-		public string Community
+		public int Community
 		{
 			get { return community; }
 			set { community = value; }

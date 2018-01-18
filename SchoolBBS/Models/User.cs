@@ -12,6 +12,18 @@ namespace SchoolBBS.Models
 			this.UserNumberID = userNumber;
 		}
 
+		public User(string userNumber,string nickname,string password,string headPicPath,string gender,int age,string subjectName,DateTime registerTime):base(userNumber)
+		{
+			this.UserNumberID = userNumber;
+			this.NickName = nickname;
+			//this.Password = password;
+			this.HeadPicPath = headPicPath;
+			this.Gender = gender;
+			this.Age = age;
+			this.SubjectName = subjectName;
+			this.RegisterTime = registerTime;
+		}
+
 		public override bool AddUser()
 		{
 			throw new NotImplementedException();

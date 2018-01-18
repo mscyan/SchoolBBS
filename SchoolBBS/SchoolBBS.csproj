@@ -148,6 +148,7 @@
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="DataAccessLibrary\LogDataAccess.cs" />
+    <Compile Include="DataAccessLibrary\PostDataAccess.cs" />
     <Compile Include="DataAccessLibrary\SqlManager.cs" />
     <Compile Include="DataAccessLibrary\UserDataAccess.cs" />
     <Compile Include="Global.asax.cs">

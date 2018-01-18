@@ -98,20 +98,7 @@
 							}
 							if (data == "登录正确") {
 								alert("登录成功！");
-								@using SchoolBBS.Models;
-								@{
-									//将登录用户的信息放在服务器，并导航到主页面
-									if(Session["LoginUser"]!=null)
-									{
-										Response.Write(((User)Session["LoginUser"]).UserNumberID);
-										Response.Write("<div>123"+ ((User)Session["LoginUser"]).UserNumberID + "321</div>");
-									}
-									else
-									{
-										Response.Write("<div>abcdefg1111</div>");
-									}
-								}
-								//window.location.href = "/Index/Index";
+								window.location.href = "/Index/Index";
 							}
 						},
 						error: function () {

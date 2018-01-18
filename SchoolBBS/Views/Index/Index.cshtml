@@ -56,13 +56,13 @@
 			float:left;
 		}
 		.list-username {
-			width: 100px;
+			width: 110px;
 			height: 50px;
 			float: left;
 			padding-top:5px;
 		}
 		.list-time {
-			width: 110px;
+			width: 100px;
 			height: 30px;
 			float: left;
 			padding-top: 5px;
@@ -144,6 +144,63 @@
 			$(".post-list").mouseleave(function () {
 				this.style.background = "#FFF";
 			})
+			$("#post-bt").click(function () {
+				//alert("ab");
+
+				var title = $("#post-title").val();
+				var content = $("#post-content").val();
+				var valid = 2;
+				if (title.trim().length < 5) {
+					valid = valid - 1;
+					alert("标题不能为空或标题太短，不得少于5个字符")
+				}
+				if (content.trim().length < 3) {
+					valid = valid - 1;
+					alert("话题不能为空或内容太少，不得少于3个字符")
+				}
+				if (valid == 2) {
+					@{
+						string loginuser = "";
+						if(Request.Cookies["LoginUser"]==null)
+						{
+							loginuser = "";
+						}
+						else
+						{
+							loginuser = Request.Cookies["LoginUser"].Value;
+						}
+					}
+					var loginuser = @loginuser;
+					if (loginuser == ""){
+						alert("您未登录");
+					}
+					else {
+						$.ajax({
+							url: "/Index/PublishPost",
+							data: {
+								"communityID": 1,
+								"title": title,
+								"content": content,
+								"postUserID": loginuser,
+								"hasPicture": 0,
+								"picPath": ""
+							},
+							type: "POST",
+							dataType: "Json",
+							success: function (data) {
+								if (data == "nouser") {
+									alert("您未登录");
+								}
+								if (data == "success")
+									alert("发表成功");
+								if (data == "error") {
+									alert("发表失败");
+								}
+							}
+						})
+					}
+				}
+			})
 		})
 	</script>
 </head>
@@ -163,7 +220,7 @@
 	</nav>
 	<div class="left" role="tab">
 		<ul>
-			<li>
+			@*<li>
 				<div class="post-list">
 					<div class="list-title">
 						<div class="title">
@@ -178,58 +235,53 @@
 					<span class="list-time">2018/1/17 16:43</span>
 					<div style="clear:both"></div>
 				</div>
-			</li>
-			<li>
-				<div class="post-list">
-					<div class="list-title">
-						<div class="title">
-							<a href="#">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是</a>
-						</div>
-						<div class="overview">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是李总，看眼神好</div>
-						<div class="picture">
-							<img src="~/Resource/zzr.jpg" />
-						</div>
-					</div>
-					<span class="list-username">意外之外</span>
-					<span class="list-time">2018/1/17 17:02</span>
-					<div style="clear:both"></div>
-				</div>
-			</li>
-			<li>
-				<div class="post-list">
-					<div class="list-title">
-						<div class="title">
-							<a href="#">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是</a>
-						</div>
-						<div class="overview">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是李总，看眼神好</div>
-					</div>
-					<span class="list-username">意外之外</span>
-					<span class="list-time">2018/1/17 17:02</span>
-					<div style="clear:both"></div>
-				</div>
-			</li>
-			<li>
-				<div class="post-list">
-					<div class="list-title">
-						<div class="title">
-							<a href="#">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是</a>
-						</div>
-						<div class="overview">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是李总，看眼神好</div>
-						<div class="picture">
-							<img src="~/Resource/2018_1_2_Bing_en-IN.jpg" />
-						</div>
-					</div>
-					<span class="list-username">意外之外</span>
-					<span class="list-time">2018/1/17 17:02</span>
-					<div style="clear:both"></div>
-				</div>
-			</li>
+			</li>*@
+			@using SchoolBBS.Models;
+			@using SchoolBBS.DataAccessLibrary;
+			@{
+				var posts = new PostDataAccess().GetPosts();
+				if (posts != null)
+				{
+					foreach (var item in posts)
+					{
+						<li>
+							<div class="post-list">
+								<div class="list-title">
+									<div class="title">
+										<a href="/Post/PostPage?ID=@item.PostID">@item.Title</a>
+									</div>
+									<div class="overview">@item.ContentOverview</div>
+									@*<div class="picture">
+										@*<img src="~/Resource/2018_1_2_Bing_en-IN.jpg" />
+									</div>*@
+								</div>
+								<span class="list-username">@item.PostUser</span>
+								<span class="list-time">@item.PostTime</span>
+								<div style="clear:both"></div>
+							</div>
+						</li>
+					}
+				}
+			}
 		</ul>
 	</div>
 	<div class="right" role="article">
 		<div class="login-user">
 			<img src="~/Resource/defaulthead.jpg" />
-			<div class="login-user-name"></div>
+			<div class="login-user-name" id="login-user-name">
+				
+				@{
+					if (Request.Cookies["LoginUser"] != null)
+					{
+						User us = new UserDataAccess().GetUserByID(Request.Cookies["LoginUser"].Value) ;
+						@us.NickName;
+					}
+					else
+					{
+						<a href='/Login/LoginIndex'>登录</a>
+					}
+				}
+			</div>
 		</div>
 	</div>
 	<div style="clear:both"></div>
