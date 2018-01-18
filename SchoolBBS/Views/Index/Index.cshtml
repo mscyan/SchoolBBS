@@ -8,11 +8,250 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>首页</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<script src="~/Scripts/bootstrap.js"></script>
+	<style>
+		html {
+			background: #DCEFFE;
+		}
+		body {
+			width: 1002px;
+			margin: 0px auto;
+			border: 0px solid #FAFBFC;
+			margin-bottom: 30px;
+		}
+		.left{
+			width:730px;
+			float:left;
+		}
+		.right{
+			width:268px;
+			float:right;
+			border:1px solid #351c4d;
+			height:800px;
+		}
+		ul{
+			margin:0px;
+			padding:0px;
+			height:auto;
+		}
+		li{
+			list-style:none;
+			border-bottom:dotted 1px #bee0ed;
+			
+		}
+		.post-list{
+			height:auto;
+			width:720px;
+			padding-bottom:5px;
+			padding-left:10px;
+			padding-top:10px;
+		}
+		.list-title{
+			width:500px;
+			height:auto;
+			float:left;
+		}
+		.list-username {
+			width: 100px;
+			height: 50px;
+			float: left;
+			padding-top:5px;
+		}
+		.list-time {
+			width: 110px;
+			height: 30px;
+			float: left;
+			padding-top: 5px;
+		}
+		.title {
+			color: #387783;
+			font-size: 16px;
+		}
+		.overview{
+			font-size:small;
+			height:50px;
+			width:500px;
+			color:#4e4e4e;
+			vertical-align:central;
+			padding-top:15px;
+		}
+		.picture{
+			height:200px;
+			width:500px;
+		}
+		.picture img {
+			height: 200px;
+		}
+		.pagination{
+			margin-top:10px;
+		}
+		.pagenumber{
+			margin-left:15px;
+			margin-top:0px;
+		}
+		.reply-container {
+			background: #DCDCDC;
+			width: auto;
+			height: auto;
+			padding: 20px;
+		}
+		.reply-head{
+			font-size:18px;
+			line-height:20px;
+			margin-bottom:5px;
+		}
+		#post-title{
+			width:500px;
+			border-radius:1px;
+		}
+		#post-content{
+			margin-top:20px;
+			width:700px;
+			resize:none;
+		}
+		textarea{
+			padding:5px 10px;
+			border:1px solid #cccccc;
+		}
+		#post-bt{
+			margin-top:10px;
+		}
+		footer {
+			width: 300px;
+			margin: 0px auto;
+			text-align: center;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.login-user{
+			width:auto;
+			height:150px;
+		}
+		.login-user img{
+			width:100px;
+		}
+
+	</style>
+	<script>
+		$(document).ready(function () {
+			$(".post-list").hover(function () {
+				this.style.background = "#F0FFFF";
+			})
+			$(".post-list").mouseleave(function () {
+				this.style.background = "#FFF";
+			})
+		})
+	</script>
 </head>
 <body>
-    <div> 
-		论坛首页
-    </div>
+	<nav class="navbar navbar-default" role="navigation" style="border:1.5px solid #d57070">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">首页</a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">主页</a></li>
+					<li><a href="#">综合区</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="left" role="tab">
+		<ul>
+			<li>
+				<div class="post-list">
+					<div class="list-title">
+						<div class="title">
+							<a href="/Post/PostPage">一早起来免费钻石抽的，可我是李夫人…</a>
+						</div>
+						<div class="overview">一个可爱的小姐姐送我一个溺海得号，今天一早起来免费钻石单抽，又抽到许墨sr，</div>
+						<div class="picture">
+							<img src="~/Resource/back.jpg" />
+						</div>
+					</div>
+					<span class="list-username">意外之外</span>
+					<span class="list-time">2018/1/17 16:43</span>
+					<div style="clear:both"></div>
+				</div>
+			</li>
+			<li>
+				<div class="post-list">
+					<div class="list-title">
+						<div class="title">
+							<a href="#">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是</a>
+						</div>
+						<div class="overview">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是李总，看眼神好</div>
+						<div class="picture">
+							<img src="~/Resource/zzr.jpg" />
+						</div>
+					</div>
+					<span class="list-username">意外之外</span>
+					<span class="list-time">2018/1/17 17:02</span>
+					<div style="clear:both"></div>
+				</div>
+			</li>
+			<li>
+				<div class="post-list">
+					<div class="list-title">
+						<div class="title">
+							<a href="#">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是</a>
+						</div>
+						<div class="overview">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是李总，看眼神好</div>
+					</div>
+					<span class="list-username">意外之外</span>
+					<span class="list-time">2018/1/17 17:02</span>
+					<div style="clear:both"></div>
+				</div>
+			</li>
+			<li>
+				<div class="post-list">
+					<div class="list-title">
+						<div class="title">
+							<a href="#">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是</a>
+						</div>
+						<div class="overview">这张卡片是李总还是许墨啊？表示身为李夫人分不出来啊，看衣服是李总，看眼神好</div>
+						<div class="picture">
+							<img src="~/Resource/2018_1_2_Bing_en-IN.jpg" />
+						</div>
+					</div>
+					<span class="list-username">意外之外</span>
+					<span class="list-time">2018/1/17 17:02</span>
+					<div style="clear:both"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="right" role="article">
+		<div class="login-user">
+			<img src="~/Resource/defaulthead.jpg" />
+			<div class="login-user-name"></div>
+		</div>
+	</div>
+	<div style="clear:both"></div>
+	<div class="pagenumber">
+		<ul class="pagination">
+			<li><a href="#">&laquo;</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			<li><a href="#">&raquo;</a></li>
+		</ul><br>
+	</div>
+	<div class="reply-container">
+		<div class="reply-head">发表话题</div>
+		<input type="text" class="form-control" id="post-title" placeholder="标题" />
+		<textarea id="post-content" rows="5" placeholder="内容"></textarea><br/>
+		<input type="button" value="发表" id="post-bt" class="btn btn-default" />
+	</div>
+	<footer>
+		天津农学院 | 校园论坛
+	</footer>
 </body>
 </html>

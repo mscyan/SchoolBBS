@@ -9,7 +9,7 @@ namespace SchoolBBS.Models
 	{
 		public User(string userNumber):base(userNumber)
 		{
-			
+			this.UserNumberID = userNumber;
 		}
 
 		public override bool AddUser()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SchoolBBS.DataAccessLibrary;
+using SchoolBBS.Models;
 
 namespace SchoolBBS.Controllers
 {
@@ -22,6 +23,7 @@ namespace SchoolBBS.Controllers
 			{
 				if (uda.isUserExist(userNumber, password) == true)
 				{
+					Session["LoginUser"] = new User(userNumber);
 					return Json("登录正确");
 				}
 				else

@@ -97,8 +97,21 @@
 								alert("密码错误，请重新输入");
 							}
 							if (data == "登录正确") {
-								alert("登陆成功！");
-								window.location.href = "/Index/Index";
+								alert("登录成功！");
+								@using SchoolBBS.Models;
+								@{
+									//将登录用户的信息放在服务器，并导航到主页面
+									if(Session["LoginUser"]!=null)
+									{
+										Response.Write(((User)Session["LoginUser"]).UserNumberID);
+										Response.Write("<div>123"+ ((User)Session["LoginUser"]).UserNumberID + "321</div>");
+									}
+									else
+									{
+										Response.Write("<div>abcdefg1111</div>");
+									}
+								}
+								//window.location.href = "/Index/Index";
 							}
 						},
 						error: function () {
@@ -114,7 +127,7 @@
 </head>
 <body>
 	<div class="form">
-		<h2>登陆</h2>
+		<h2>登录</h2>
 		<div class="form-group">
 			<span id="userspan"></span><input type="text" class="form-control" id="user_number" placeholder="学号/工号（10位数字）" />
 			<span id="passspan"></span><input type="password" class="form-control" id="password" placeholder="密码（6-16位字符，区分大小写）" />
