@@ -23,6 +23,7 @@ namespace SchoolBBS.Controllers
 			reply.ReplyOfPost = replyOfPost;
 			reply.ReplyUser = replyUser;
 			reply.ReplyTime = DateTime.Now;
+			new PostDataAccess().SetReplyCount(replyOfPost);
 			int floor = new PostDataAccess().GetPostByID(replyOfPost).ReplyCount;
 			reply.ReplyFloor = floor+1;
 			reply.ReplyContent = content;
@@ -31,7 +32,10 @@ namespace SchoolBBS.Controllers
 
 			bool addresult = rda.AddReply(reply);
 			if (addresult)
+			{
+				new LogDataAccess().AddLog(replyUser, new UserDataAccess().GetUserByID(replyUser).NickName, "回复了《" + new PostDataAccess().GetPostByID(replyOfPost).Title + "》");
 				return Json("success");
+			}
 			else
 				return Json("failed");
         }

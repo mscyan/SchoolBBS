@@ -34,6 +34,7 @@
 							isLogined = Request.Cookies["LoginUser"].Value;
 						}
 					}
+					var st = @isLogined;
 					if ("blank" == st) {
 						alert("您未登录");
 					}
@@ -54,6 +55,7 @@
 						success: function (data) {
 							if (data == "success") {
 								alert("发表成功");
+								window.location.reload();
 							}
 							if (data == "failed") {
 								alert("发表失败");
@@ -222,45 +224,40 @@
 	</div>
 	<article>
 		<ul>
-			<li>
-				<div class="headPic">
-					<img src="~/Resource/head8.png" />
-				</div>
-				<div class="reply-container">
-					<div class="reply-username"><b>意外之外</b></div>
-					<div class="tr-level">1 楼</div>
-					<div class="reply-time">2018-1-19 16:49:23</div>
-					<div class="reply-content">听一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。</div>
-					<div class="reply-img"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</li>
-			<li>
-				<div class="headPic">
-					<img src="~/Resource/head8.png" />
-				</div>
-				<div class="reply-container">
-					<div class="reply-username"><b>意外之外</b></div>
-					<div class="tr-level">2 楼</div>
-					<div class="reply-time">2018-1-19 16:49:23</div>
-					<div class="reply-content">中国移动中国移动中国移动中国移动中国移动用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。</div>
-					<div class="reply-img"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</li>
-			<li>
-				<div class="headPic">
-					<img src="~/Resource/head8.png" />
-				</div>
-				<div class="reply-container">
-					<div class="reply-username"><b>意外之外</b></div>
-					<div class="tr-level">3 楼</div>
-					<div class="reply-time">2018-1-19 16:49:23</div>
-					<div class="reply-content">中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。</div>
-					<div class="reply-img"></div>
-				</div>
-				<div style="clear:both;"></div>
-			</li>
+			@{
+				var list = new ReplyDataAccess().GetReplysByPostID(int.Parse(Request.Params["ID"].ToString()));
+				if (list != null)
+				{
+					foreach (var item in list)
+					{
+						<li>
+							<div class="headPic">
+								<img src="~/Resource/head8.png" />
+							</div>
+							<div class="reply-container">
+								@{ 
+									User us = new UserDataAccess().GetUserByID(item.ReplyUser);
+								}
+								<div class="reply-username"><b>@us.NickName</b></div>
+								<div class="tr-level">@item.ReplyFloor 楼</div>
+								<div class="reply-time">@item.ReplyTime</div>
+								<div class="reply-content">@item.ReplyContent</div>
+								@{
+									if (item.HasPicture == 1)
+									{
+										<div class="reply-img">
+											<img src="@item.PicturePath" />
+										</div>
+									}
+								}
+							</div>
+							<div style="clear:both;"></div>
+						</li>
+					}
+				}
+
+			}
+			
 		</ul>
 	</article>
 	<div style="clear:both;"></div>

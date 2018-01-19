@@ -261,7 +261,10 @@
 									}
 
 								</div>
-								<span class="list-username">@item.PostUser</span>
+								@{
+									User us = new UserDataAccess().GetUserByID(item.PostUser);
+								}
+								<span class="list-username">@us.NickName</span>
 								<span class="list-time">@item.PostTime</span>
 								<div style="clear:both"></div>
 							</div>

@@ -50,7 +50,25 @@ namespace SchoolBBS.DataAccessLibrary
 				return null;
 		}
 
-		//获得帖子集合
+		//获取某个帖子内部回复的数量
+		public int GetFloorByPostID(int postID)
+		{
+			string sql = string.Format("select count(*) from Reply where replyOfPost = '{0}'", postID);
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			return int.Parse(dt.Rows[0][0].ToString());
+		}
+
+		public bool SetReplyCount(int postID)
+		{
+			string sql = string.Format("update [Post] set replyCount = '{0}' where postID = '{1}'", GetFloorByPostID(postID), postID);
+			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
+			if (Convert.ToInt32(obj) > 0)
+				return true;
+			else
+				return false;
+		}
+
+		//获得帖子集合!待修正，需根据社区编号获取
 		public List<Post> GetPosts()
 		{
 			string sql = string.Format("select * from [post]");
