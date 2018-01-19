@@ -2,17 +2,275 @@
 @{
     Layout = null;
 }
-
+@using SchoolBBS.DataAccessLibrary;
+@using SchoolBBS.Models;
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>PostPage</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#reply-bt").click(function () {
+				var content = $("#reply-content").val();
+				if (content.trim() <= 1) {
+					alert("回复内容不能为空！");
+				}
+				else {
+					var loginUser = "";
+					var blank = "blank";
+					@{ 
+						var isLogined = "";
+						var replyOfPost = new PostDataAccess().GetPostByID(int.Parse(Request.Params["id"].ToString()));
+						if(Request.Cookies["LoginUser"]==null)
+						{
+							isLogined = "blank";
+						}
+						else
+						{
+							isLogined = Request.Cookies["LoginUser"].Value;
+						}
+					}
+					if ("blank" == st) {
+						alert("您未登录");
+					}
+					else {
+						loginUser = @isLogined;
+					}
+					$.ajax({
+						url: "/Reply/AddReplyAction",
+						data: {
+							"replyOfPost":@replyOfPost.PostID,
+							"replyUser":loginUser,
+							"content": content,
+							"hasPicture":0,
+							"picturePath": ""
+						},
+						type: "POST",
+						dataType: "Json",
+						success: function (data) {
+							if (data == "success") {
+								alert("发表成功");
+							}
+							if (data == "failed") {
+								alert("发表失败");
+							}
+							else {
+								//alert(data);
+							}
+						}
+					});
+				}
+			})
+		})
+	</script>
+	<style>
+		html {
+			/*background-color: #114e52;*/
+			background-image: url(/Resource/backimg.jpg);
+		}
+		body {
+			width: 1000px;
+			height: 800px;
+			margin: 0px auto;
+			background-image: url(/Resource/backimg.jpg);
+		}
+		header{
+			width:960px;
+			height:150px;
+			margin-top:20px;
+			margin-left:20px;
+			margin-right:20px;
+			background-color:#fff;
+		}
+		.left-info{
+			width:230px;
+			height:300px;
+			border-radius:2px;
+			background-color:#fff;
+			float:left;
+			margin-left:20px;
+			margin-top:20px;
+		}
+		article{
+			width:750px;
+			height:auto;
+			float:left;
+		}
+		ul {
+			width: 750px;
+			height:auto;
+			padding: 0px;
+		}
+		li {
+			list-style: none;
+			width: 710px;
+			margin-top: 15px;
+			margin-left: 20px;
+			margin-right: 20px;
+			background-color: #f4eeee;
+			border-radius: 2px;
+		}
+		.headPic {
+			width: 120px;
+			height:120px;
+			margin-bottom:0px;
+			padding-bottom:0px;
+			background-color: #f4eeee;
+			overflow:hidden;
+			float: left;
+		}
+		.headPic img{	
+			width:80px;
+			margin-top:20px;
+			margin-left:20px;
+			margin-bottom:20px;
+		}
+		.reply-container{
+			width:590px;
+			min-height:120px;
+			float:left;
+			background-color:#fff;
+		}
+		.reply-username {
+			margin-top:10px;
+			margin-left:10px;
+			color: #333;
+			font-size: 20px;
+			font-family: '黑体';
+			line-height:30px;
+			width:100px;
+			float:left;
+		}
+		.tr-level {
+			margin-right: 10px;
+			margin-top:10px;
+			float: right;
+			font-size:13px;
+			color:#808080;
+		}
+		.reply-time {
+			clear:both;
+			margin-left: 10px;
+			color: #808080;
+			font-size: 13px;
+		}
+		.reply-content {
+			margin-left: 10px;
+			margin-top: 3px;
+			margin-right:10px;
+			padding-bottom:10px;
+			width: auto;
+			height:auto;
+			background: #fff;
+			font-size:14px;
+			line-height:25px;
+			text-indent:2em;
+			letter-spacing:1px;/*字间距*/
+		}
+		footer{
+			width:960px;
+			background-color:#fff;
+			border-radius:2px;
+			height:200px;
+			margin-left:20px;
+			margin-bottom:20px;
+		}
+		.reply-area{
+			background: #DCDCDC;
+			width: auto;
+			height: auto;
+			padding: 10px;
+		}
+		.reply-head {
+			font-size: 18px;
+			line-height: 20px;
+			margin-bottom: 5px;
+			margin-left:5px;
+			margin-top:5px;
+		}
+
+		#reply-content {
+			margin-top: 20px;
+			width: 700px;
+			resize: none;
+		}
+
+		textarea {
+			padding: 5px 10px;
+			border: 1px solid #cccccc;
+		}
+
+		#reply-bt {
+			margin-top: 10px;
+		}
+		.warning{
+
+		}
+	</style>
 </head>
 <body>
-    <div> 
-		帖子里面
-    </div>
+    <header> 
+		顶部
+    </header>
+	<div class="left-info">
+		123
+		<div> 名字叫做</div>
+	</div>
+	<article>
+		<ul>
+			<li>
+				<div class="headPic">
+					<img src="~/Resource/head8.png" />
+				</div>
+				<div class="reply-container">
+					<div class="reply-username"><b>意外之外</b></div>
+					<div class="tr-level">1 楼</div>
+					<div class="reply-time">2018-1-19 16:49:23</div>
+					<div class="reply-content">听一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。</div>
+					<div class="reply-img"></div>
+				</div>
+				<div style="clear:both;"></div>
+			</li>
+			<li>
+				<div class="headPic">
+					<img src="~/Resource/head8.png" />
+				</div>
+				<div class="reply-container">
+					<div class="reply-username"><b>意外之外</b></div>
+					<div class="tr-level">2 楼</div>
+					<div class="reply-time">2018-1-19 16:49:23</div>
+					<div class="reply-content">中国移动中国移动中国移动中国移动中国移动用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。</div>
+					<div class="reply-img"></div>
+				</div>
+				<div style="clear:both;"></div>
+			</li>
+			<li>
+				<div class="headPic">
+					<img src="~/Resource/head8.png" />
+				</div>
+				<div class="reply-container">
+					<div class="reply-username"><b>意外之外</b></div>
+					<div class="tr-level">3 楼</div>
+					<div class="reply-time">2018-1-19 16:49:23</div>
+					<div class="reply-content">中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国移动中国用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。用这个固话打给我，叽里呱啦一句没听清，就中国移动说清楚了，谁知道今天接到这个短信。</div>
+					<div class="reply-img"></div>
+				</div>
+				<div style="clear:both;"></div>
+			</li>
+		</ul>
+	</article>
+	<div style="clear:both;"></div>
+	<footer>
+		<div class="reply-area">
+			<div class="reply-head">回复</div>
+			<div class="warning"></div>
+			<textarea id="reply-content" rows="5" placeholder="内容"></textarea><br />
+			<input type="button" value="回复" id="reply-bt" class="btn btn-default" />
+		</div>
+	</footer>
 </body>
 </html>

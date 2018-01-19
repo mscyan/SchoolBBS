@@ -25,7 +25,7 @@ namespace SchoolBBS.DataAccessLibrary
 		}
 
 		//通过编号获取一条帖子对象
-		public Post GetPostByID(string postID)
+		public Post GetPostByID(int postID)
 		{
 			string sql = string.Format("select * from [post] where postID = '{0}'", postID);
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);

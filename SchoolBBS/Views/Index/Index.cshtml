@@ -251,9 +251,15 @@
 										<a href="/Post/PostPage?ID=@item.PostID">@item.Title</a>
 									</div>
 									<div class="overview">@item.ContentOverview</div>
-									@*<div class="picture">
-										@*<img src="~/Resource/2018_1_2_Bing_en-IN.jpg" />
-									</div>*@
+									@{ 
+										if (item.HasPicture == 1)
+										{
+											<div class="picture">
+												<img src="@item.PicturePath" />
+											</div>
+										}
+									}
+
 								</div>
 								<span class="list-username">@item.PostUser</span>
 								<span class="list-time">@item.PostTime</span>

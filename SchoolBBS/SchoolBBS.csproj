@@ -147,8 +147,10 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\ReplyController.cs" />
     <Compile Include="DataAccessLibrary\LogDataAccess.cs" />
     <Compile Include="DataAccessLibrary\PostDataAccess.cs" />
+    <Compile Include="DataAccessLibrary\ReplyDataAccess.cs" />
     <Compile Include="DataAccessLibrary\SqlManager.cs" />
     <Compile Include="DataAccessLibrary\UserDataAccess.cs" />
     <Compile Include="Global.asax.cs">
@@ -158,6 +160,7 @@
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\AbstractUser.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Reply.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,11 +171,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resource\22.jpg" />
     <Content Include="Resource\2018_1_2_Bing_en-IN.jpg" />
     <Content Include="Resource\356497-106.jpg" />
     <Content Include="Resource\back.jpg" />
     <Content Include="Resource\back1.jpg" />
+    <Content Include="Resource\backimg.jpg" />
     <Content Include="Resource\defaulthead.jpg" />
+    <Content Include="Resource\head8.png" />
     <Content Include="Resource\zzr.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -211,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Reply\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
