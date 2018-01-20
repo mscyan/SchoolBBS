@@ -144,8 +144,20 @@
 			$(".post-list").mouseleave(function () {
 				this.style.background = "#FFF";
 			})
+			$("#sign-out").click(function () {
+				$.ajax({
+					url: "/Login/SignOutAction",
+					type: "POST",
+					dataType: "Json",
+					success: function (data) {
+						if (data == "success") {
+							alert("注销成功");
+							window.location.reload();
+						}
+					}
+				})
+			});
 			$("#post-bt").click(function () {
-				//alert("ab");
 
 				var title = $("#post-title").val();
 				var content = $("#post-content").val();
@@ -220,22 +232,6 @@
 	</nav>
 	<div class="left" role="tab">
 		<ul>
-			@*<li>
-				<div class="post-list">
-					<div class="list-title">
-						<div class="title">
-							<a href="/Post/PostPage">一早起来免费钻石抽的，可我是李夫人…</a>
-						</div>
-						<div class="overview">一个可爱的小姐姐送我一个溺海得号，今天一早起来免费钻石单抽，又抽到许墨sr，</div>
-						<div class="picture">
-							<img src="~/Resource/back.jpg" />
-						</div>
-					</div>
-					<span class="list-username">意外之外</span>
-					<span class="list-time">2018/1/17 16:43</span>
-					<div style="clear:both"></div>
-				</div>
-			</li>*@
 			@using SchoolBBS.Models;
 			@using SchoolBBS.DataAccessLibrary;
 			@{
@@ -248,7 +244,7 @@
 							<div class="post-list">
 								<div class="list-title">
 									<div class="title">
-										<a href="/Post/PostPage?ID=@item.PostID">@item.Title</a>
+										<a href="/Post/PostPage?ID=@item.PostID" target="_blank">@item.Title</a>
 									</div>
 									<div class="overview">@item.ContentOverview</div>
 									@{ 
@@ -284,6 +280,7 @@
 					{
 						User us = new UserDataAccess().GetUserByID(Request.Cookies["LoginUser"].Value) ;
 						@us.NickName;
+						<button id="sign-out">登出</button>
 					}
 					else
 					{
@@ -310,6 +307,7 @@
 		<input type="text" class="form-control" id="post-title" placeholder="标题" />
 		<textarea id="post-content" rows="5" placeholder="内容"></textarea><br/>
 		<input type="button" value="发表" id="post-bt" class="btn btn-default" />
+
 	</div>
 	<footer>
 		天津农学院 | 校园论坛

@@ -73,48 +73,35 @@
 		html {
 			/*background-color: #114e52;*/
 			background-image: url(/Resource/backimg.jpg);
+			/*background-color: rgb(27,40,56);*/
+			/*background-color:#fff;*/
 		}
 		body {
 			width: 1000px;
 			height: 800px;
 			margin: 0px auto;
 			background-image: url(/Resource/backimg.jpg);
-		}
-		header{
-			width:960px;
-			height:150px;
-			margin-top:20px;
-			margin-left:20px;
-			margin-right:20px;
-			background-color:#fff;
-		}
-		.left-info{
-			width:230px;
-			height:300px;
-			border-radius:2px;
-			background-color:#fff;
-			float:left;
-			margin-left:20px;
-			margin-top:20px;
+			/*background-color: rgb(27,40,56);*/
 		}
 		article{
 			width:750px;
 			height:auto;
 			float:left;
 		}
-		ul {
+		article ul {
 			width: 750px;
 			height:auto;
 			padding: 0px;
 		}
-		li {
+		article li {
 			list-style: none;
 			width: 710px;
 			margin-top: 15px;
 			margin-left: 20px;
 			margin-right: 20px;
 			background-color: #f4eeee;
-			border-radius: 2px;
+			border-radius: 3px;
+			overflow:hidden;
 		}
 		.headPic {
 			width: 120px;
@@ -212,15 +199,98 @@
 		.warning{
 
 		}
+
+		header {
+			width: 960px;
+			height: 150px;
+			margin-top: 20px;
+			margin-left: 20px;
+			margin-right: 20px;
+			background-color:white;
+		}
+		.post-area 
+		{
+			padding:10px;
+		}
+		.title {
+			font-size: 20px;
+			
+		}
+		.post-time{
+			color:#808080;
+			font-size:15px;
+			line-height:25px;
+		}
+		content {
+			font-size: 14px;
+			line-height: 25px;
+			text-indent: 2em;
+			letter-spacing: 1px; /*字间距*/
+		}
+		.left-info {
+			width: 230px;
+			height: auto;
+			border-radius: 2px;
+			background-color: rgba(24, 171, 177, 0.77);
+			float: left;
+			margin-left: 20px;
+			margin-top: 20px;
+		}
+		.left-info ul{
+			padding:0px;
+			list-style:none;
+		}
+		.left-info li{
+			font-size:12px;
+			margin-top:5px;
+			margin-left:5px;
+			width:220px;
+		}
+		.left-info li a{
+			text-decoration:none;
+			color:white;
+		}
+		.left-info li a:hover {
+			color: #fafafa;
+		}
+		.left-info-head{
+			margin:10px;
+			color:white;
+		}
 	</style>
 </head>
 <body>
+	@{
+		var postID = int.Parse(Request.Params["ID"].ToString());
+		var post = new PostDataAccess().GetPostByID(postID);
+		User us = new UserDataAccess().GetUserByID(post.PostUser);
+	}
     <header> 
-		顶部
+		@{ 
+			<div class="post-userinfo">
+				@*<div>@us.NickName:</div>*@
+			</div>
+			<div class="post-area">
+				<div class="title"><b>@post.Title</b></div>
+				<div class="post-time">@post.PostTime</div>
+				<div class="content">@post.Content</div>
+			</div>
+		}
     </header>
 	<div class="left-info">
-		123
-		<div> 名字叫做</div>
+		<div class="left-info-head">热门帖子</div>
+		<ul>
+			<li><a href="#" target="_blank">1.国美回应黄光裕出狱传闻：消息不实，当事人一切正常</a></li>
+			<li><a href="#">2.互联网是怎么一步步成为基础服务的</a></li>
+			<li><a href="#">3.深圳交委：滴滴投放小蓝单车属违规，已多次约谈</a></li>
+			<li><a href="#">4.【IT之家】特斯拉Model X现场实拍：无处不在的科技感</a></li>
+			<li><a href="#">5.网易云音乐自有加密音乐格式曝光：没会员无法播放</a></li>
+			<li><a href="#">6.阔别7年的内裤外穿回归：全新超人首曝造型照</a></li>
+			<li><a href="#">7.LG V30+α有望亮相MWC 2018：骁龙835全面屏，AI加持</a></li>
+			<li><a href="#">8.乐视网或于下周四复牌</a></li>
+			<li><a href="#">9.手机QQ iOS版v7.3.5更新：新增视频通话表情红包</a></li>
+			<li><a href="#">10.新年挂历暗藏40万元内存条，被海关逮个正着</a></li>
+		</ul>
 	</div>
 	<article>
 		<ul>
@@ -235,9 +305,6 @@
 								<img src="~/Resource/head8.png" />
 							</div>
 							<div class="reply-container">
-								@{ 
-									User us = new UserDataAccess().GetUserByID(item.ReplyUser);
-								}
 								<div class="reply-username"><b>@us.NickName</b></div>
 								<div class="tr-level">@item.ReplyFloor 楼</div>
 								<div class="reply-time">@item.ReplyTime</div>

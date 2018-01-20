@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SchoolBBS.Controllers
+namespace WebApplication1.Controllers
 {
 	public class HomeController : Controller
 	{
@@ -23,12 +23,6 @@ namespace SchoolBBS.Controllers
 		public ActionResult Contact()
 		{
 			ViewBag.Message = "Your contact page.";
-
-			return View();
-		}
-
-		public ActionResult UMeditor()
-		{
 
 			return View();
 		}

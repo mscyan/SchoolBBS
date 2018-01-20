@@ -35,5 +35,11 @@ namespace SchoolBBS.Controllers
 			}
 			return Json("用户不存在");
 		}
+
+		public ActionResult SignOutAction()
+		{
+			Response.Cookies["LoginUser"].Expires = DateTime.Now ;
+			return Json("success");
+		}
     }
 }
