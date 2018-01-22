@@ -1,7 +1,7 @@
 /*!
  * UEditor Mini版本
  * version: 1.2.2
- * build: Thu Dec 22 2016 16:35:57 GMT+0800 (CST)
+ * build: Thu Dec 22 2016 16:36:59 GMT+0800 (CST)
  */
 
 (function($){

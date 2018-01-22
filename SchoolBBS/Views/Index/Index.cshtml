@@ -9,134 +9,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>首页</title>
+	<meta name="viewport" content="width=device-width" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<script src="~/Scripts/jquery-1.10.2.js"></script>
 	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<link href="~/Scripts/Umeditor/utf8-asp/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="~/Scripts/Umeditor/utf8-asp/third-party/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="~/Scripts/Umeditor/utf8-asp/umeditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="~/Scripts/Umeditor/utf8-asp/umeditor.js"></script>
+	<script type="text/javascript" src="~/Scripts/Umeditor/utf8-asp/lang/zh-cn/zh-cn.js"></script>
 	<script src="~/Scripts/bootstrap.js"></script>
-	<style>
-		html {
-			background: #DCEFFE;
-		}
-		body {
-			width: 1002px;
-			margin: 0px auto;
-			border: 0px solid #FAFBFC;
-			margin-bottom: 30px;
-		}
-		.left{
-			width:730px;
-			float:left;
-		}
-		.right{
-			width:268px;
-			float:right;
-			border:1px solid #351c4d;
-			height:800px;
-		}
-		ul{
-			margin:0px;
-			padding:0px;
-			height:auto;
-		}
-		li{
-			list-style:none;
-			border-bottom:dotted 1px #bee0ed;
-			
-		}
-		.post-list{
-			height:auto;
-			width:720px;
-			padding-bottom:5px;
-			padding-left:10px;
-			padding-top:10px;
-		}
-		.list-title{
-			width:500px;
-			height:auto;
-			float:left;
-		}
-		.list-username {
-			width: 110px;
-			height: 50px;
-			float: left;
-			padding-top:5px;
-		}
-		.list-time {
-			width: 100px;
-			height: 30px;
-			float: left;
-			padding-top: 5px;
-		}
-		.title {
-			color: #387783;
-			font-size: 16px;
-		}
-		.overview{
-			font-size:small;
-			height:50px;
-			width:500px;
-			color:#4e4e4e;
-			vertical-align:central;
-			padding-top:15px;
-		}
-		.picture{
-			height:200px;
-			width:500px;
-		}
-		.picture img {
-			height: 200px;
-		}
-		.pagination{
-			margin-top:10px;
-		}
-		.pagenumber{
-			margin-left:15px;
-			margin-top:0px;
-		}
-		.reply-container {
-			background: #DCDCDC;
-			width: auto;
-			height: auto;
-			padding: 20px;
-		}
-		.reply-head{
-			font-size:18px;
-			line-height:20px;
-			margin-bottom:5px;
-		}
-		#post-title{
-			width:500px;
-			border-radius:1px;
-		}
-		#post-content{
-			margin-top:20px;
-			width:700px;
-			resize:none;
-		}
-		textarea{
-			padding:5px 10px;
-			border:1px solid #cccccc;
-		}
-		#post-bt{
-			margin-top:10px;
-		}
-		footer {
-			width: 300px;
-			margin: 0px auto;
-			text-align: center;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
-		.login-user{
-			width:auto;
-			height:150px;
-		}
-		.login-user img{
-			width:100px;
-		}
-
-	</style>
-	<script>
+	<link href="~/Content/Index.css" rel="stylesheet" />
+	<script type="text/javascript">
 		$(document).ready(function () {
 			$(".post-list").hover(function () {
 				this.style.background = "#F0FFFF";
@@ -158,24 +43,44 @@
 				})
 			});
 			$("#post-bt").click(function () {
-
+				var um = UM.getEditor("myEditor");
+				var plainTxt = um.getPlainTxt().trim() + "";
+				if (plainTxt.indexOf("_src") > 10) {
+					//有图
+					if (plainTxt.indexOf("<img src") != plainTxt.lastIndexOf("<img src")) {
+						alert("仅可上传一张图片哟");
+					}
+					else {
+						var picPath = "";
+						var pathStart = plainTxt.indexOf("_src");
+						var len = 96;
+						picPath = plainTxt.substr(pathStart - 95, 93);
+						subcontent(1, picPath);
+					}
+				}
+				else {
+					//无图
+					subcontent(0, "");
+				}
+			})
+			function subcontent(hasPicture,PicPath) {
 				var title = $("#post-title").val();
-				var content = $("#post-content").val();
+				var content = UM.getEditor("myEditor").getContentTxt();
 				var valid = 2;
 				if (title.trim().length < 5) {
 					valid = valid - 1;
-					alert("标题不能为空或标题太短，不得少于5个字符")
+					alert("标题不能为空或标题太短，不得少于5个字符");
 				}
 				if (content.trim().length < 3) {
 					valid = valid - 1;
-					alert("话题不能为空或内容太少，不得少于3个字符")
+					alert("话题不能为空或内容太少，不得少于3个字符");
 				}
 				if (valid == 2) {
+					var blank = "blank";
 					@{
-						string loginuser = "";
-						if(Request.Cookies["LoginUser"]==null)
-						{
-							loginuser = "";
+						string loginuser = "blank";
+						if(Request.Cookies["LoginUser"] == null) {
+							loginuser = "blank";
 						}
 						else
 						{
@@ -183,7 +88,7 @@
 						}
 					}
 					var loginuser = @loginuser;
-					if (loginuser == ""){
+					if (loginuser == "blank") {
 						alert("您未登录");
 					}
 					else {
@@ -194,8 +99,8 @@
 								"title": title,
 								"content": content,
 								"postUserID": loginuser,
-								"hasPicture": 0,
-								"picPath": ""
+								"hasPicture": hasPicture,
+								"picPath": PicPath
 							},
 							type: "POST",
 							dataType: "Json",
@@ -204,7 +109,10 @@
 									alert("您未登录");
 								}
 								if (data == "success")
+								{
 									alert("发表成功");
+									window.location.reload();
+								}
 								if (data == "error") {
 									alert("发表失败");
 								}
@@ -212,7 +120,7 @@
 						})
 					}
 				}
-			})
+			}
 		})
 	</script>
 </head>
@@ -305,12 +213,22 @@
 	<div class="reply-container">
 		<div class="reply-head">发表话题</div>
 		<input type="text" class="form-control" id="post-title" placeholder="标题" />
-		<textarea id="post-content" rows="5" placeholder="内容"></textarea><br/>
+		<br />
+		@*<textarea id="post-content" rows="5" placeholder="内容"></textarea>*@
+		<script type="text/plain" id="myEditor" style="width:960px;height:240px;"><p>发表的内容</p></script>
+		<div class="clear"></div>
+		<div class="clear"></div>
+		<br/>
 		<input type="button" value="发表" id="post-bt" class="btn btn-default" />
 
 	</div>
 	<footer>
 		天津农学院 | 校园论坛
 	</footer>
+	<script type="text/javascript">
+		//实例化编辑器
+		var um = UM.getEditor('myEditor');
+	</script>
+
 </body>
 </html>

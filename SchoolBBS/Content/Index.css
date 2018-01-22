@@ -1,0 +1,143 @@
+﻿html {
+	background: #DCEFFE;
+}
+
+body {
+	width: 1002px;
+	margin: 0px auto;
+	border: 0px solid #FAFBFC;
+	margin-bottom: 30px;
+}
+
+.left {
+	width: 730px;
+	float: left;
+}
+
+.right {
+	width: 268px;
+	float: right;
+	border: 1px solid #351c4d;
+	height: 800px;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	height: auto;
+}
+
+li {
+	list-style: none;
+	border-bottom: dotted 1px #bee0ed;
+}
+
+.post-list {
+	height: auto;
+	width: 720px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+.list-title {
+	width: 500px;
+	height: auto;
+	float: left;
+}
+
+.list-username {
+	width: 110px;
+	height: 50px;
+	float: left;
+	padding-top: 5px;
+}
+
+.list-time {
+	width: 100px;
+	height: 30px;
+	float: left;
+	padding-top: 5px;
+}
+
+.title {
+	color: #387783;
+	font-size: 16px;
+}
+
+.overview {
+	font-size: small;
+	height: 50px;
+	width: 500px;
+	color: #4e4e4e;
+	vertical-align: central;
+	padding-top: 15px;
+}
+
+.picture {
+	height: 200px;
+	width: 500px;
+}
+
+	.picture img {
+		height: 200px;
+	}
+
+.pagination {
+	margin-top: 10px;
+}
+
+.pagenumber {
+	margin-left: 15px;
+	margin-top: 0px;
+}
+
+.reply-container {
+	background:url(../Resource/postback.png) repeat;
+	width: auto;
+	height: auto;
+	padding: 20px;
+}
+
+.reply-head {
+	font-size: 18px;
+	line-height: 20px;
+	margin-bottom: 5px;
+}
+
+#post-title {
+	width: 500px;
+	border-radius: 1px;
+}
+
+#post-content {
+	margin-top: 20px;
+	width: 700px;
+	resize: none;
+}
+
+textarea {
+	padding: 5px 10px;
+	border: 1px solid #cccccc;
+}
+
+#post-bt {
+	margin-top: 10px;
+}
+
+footer {
+	width: 300px;
+	margin: 0px auto;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.login-user {
+	width: auto;
+	height: 150px;
+}
+
+.login-user img {
+	width: 100px;
+}
