@@ -7,6 +7,10 @@ namespace SchoolBBS.Models
 {
 	public class User : AbstractUser
 	{
+		public User() : base()
+		{
+
+		}
 		public User(string userNumber):base(userNumber)
 		{
 			this.UserNumberID = userNumber;

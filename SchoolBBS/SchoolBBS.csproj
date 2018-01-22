@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Content\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -168,6 +169,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Index.css" />
+    <Content Include="Content\PostPage.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -315,6 +317,7 @@
     <Content Include="Scripts\Umeditor\utf8-asp\third-party\mathquill\font\Symbola.otf" />
     <Content Include="Scripts\Umeditor\utf8-asp\third-party\mathquill\font\Symbola.ttf" />
     <Content Include="Scripts\Umeditor\utf8-asp\third-party\mathquill\font\Symbola.woff" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

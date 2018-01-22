@@ -7,6 +7,10 @@ namespace SchoolBBS.Models
 {
 	public abstract class AbstractUser
 	{
+		public AbstractUser()
+		{
+
+		}
 		public AbstractUser(string userNumber)
 		{
 			
