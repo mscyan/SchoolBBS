@@ -149,6 +149,7 @@
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReplyController.cs" />
+    <Compile Include="DataAccessLibrary\CommunityDataAccess.cs" />
     <Compile Include="DataAccessLibrary\LogDataAccess.cs" />
     <Compile Include="DataAccessLibrary\PostDataAccess.cs" />
     <Compile Include="DataAccessLibrary\ReplyDataAccess.cs" />

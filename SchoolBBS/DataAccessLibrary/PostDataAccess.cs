@@ -69,9 +69,9 @@ namespace SchoolBBS.DataAccessLibrary
 		}
 
 		//获得帖子集合!待修正，需根据社区编号获取
-		public List<Post> GetPosts()
+		public List<Post> GetPostsByCommunityID(int comID)
 		{
-			string sql = string.Format("select * from [post]");
+			string sql = string.Format("select * from [post] where community = '{0}'",comID);
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
 			if (dt.Rows.Count > 0)
 			{
