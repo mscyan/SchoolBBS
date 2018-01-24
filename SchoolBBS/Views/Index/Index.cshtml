@@ -42,6 +42,9 @@
 	<script src="~/Scripts/bootstrap.js"></script>
 	<link href="~/Content/Index.css" rel="stylesheet" />
 	<script type="text/javascript">
+		//$(document).ajaxComplete(function (event, request, setttings) {
+		//	alert(event.detail + "---" + request.status + "---" + setttings.url);
+		//});
 		$(document).ready(function () {
 			$(".post-list").hover(function () {
 				this.style.background = "#F0FFFF";
@@ -83,6 +86,13 @@
 					subcontent(0, "");
 				}
 			})
+			$(".user-area").hover(function () {
+				$(this).children("ul").toggle();
+			});
+			$(".down-ul").mouseleave(function () {
+				document.getElementById("down-ul").style.visibility = "hidden";
+			});
+
 			function subcontent(hasPicture,PicPath) {
 				var title = $("#post-title").val();
 				var content = UM.getEditor("myEditor").getContentTxt();
@@ -147,19 +157,23 @@
 	</script>
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation" style="border:1.5px solid #d57070">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">首页</a>
-			</div>
-			<div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">主页</a></li>
-					<li><div id="community-name"></div></li>
+	<header class="head">
+		<ul class="left-ul">
+			<li><a href="#" >首页</a></li>
+			<li><a href="#" >综合区</a></li>
+			<li><a href="#" >电子爱好区</a></li>
+			<li><a href="#" >文学交流区</a></li>
+		</ul>
+		<ul class="right-ul">
+			<li class="user-area">
+				<a href="#" >意外之外</a>
+				<ul id="down-ul">
+					<li><a href="#" >我的发言</a></li>
+					<li><a href="#" id="sign-out">退出</a></li>
 				</ul>
-			</div>
-		</div>
-	</nav>
+			</li>
+		</ul>
+	</header>
 	<div class="left" role="tab">
 		<ul>
 			@{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SchoolBBS.Content
+namespace SchoolBBS.Controllers
 {
     public class ErrorController : Controller
     {

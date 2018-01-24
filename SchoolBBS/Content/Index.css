@@ -12,13 +12,16 @@ body {
 .left {
 	width: 730px;
 	float: left;
+	margin-top:50px;
 }
 
 .right {
+	margin-top: 20px;
 	width: 268px;
 	float: right;
 	border: 1px solid #351c4d;
 	height: 800px;
+	margin-top: 50px;
 }
 
 ul {
@@ -140,4 +143,63 @@ footer {
 
 .login-user img {
 	width: 100px;
+}
+
+/*顶部导航栏*/
+.head{
+	width:1002px;
+	height:30px;
+	background:#347fdb;
+	border-radius:1px;
+	position:fixed;
+}
+.head a{
+	color:white;
+	text-decoration:none;
+}
+.left-ul{
+	float:left;
+}
+.left-ul li{
+	float:left;
+	border-bottom:none;
+	line-height:30px;
+}
+.left-ul li a {
+	text-align:center;
+	width:100px;
+	display: block;
+}
+.left-ul li a:hover{
+	background:#1154a5;
+}
+.right-ul {
+	float: right;
+	width: 120px;
+	height:30px;
+	text-align: center;
+	background: red;
+}
+.right-ul li {
+	border-bottom: none;
+	line-height: 30px;
+}
+.right-ul li a{
+	display:block;
+}
+#down-ul{
+	display:none;
+}
+#down-ul li{
+	background:#347fdb;
+	color:white;
+	line-height: 32px;
+}
+#down-ul li a {
+	text-align: center;
+	width: 120px;
+	display: block;
+}
+#down-ul li a:hover {
+	background: #1154a5;
 }
