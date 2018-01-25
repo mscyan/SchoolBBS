@@ -3,25 +3,91 @@
 }
 
 body {
-	width: 1002px;
+	width: 1000px;
 	margin: 0px auto;
 	border: 0px solid #FAFBFC;
 	margin-bottom: 30px;
+	background:#f1f1f1;
 }
 
-.left {
-	width: 730px;
+/*顶部导航栏*/
+.head {
+	width: 1000px;
+	height: 30px;
+	background: #347fdb;
+	border-radius: 1px;
+	position: fixed;
+
+}
+
+.head a {
+	color: white;
+	text-decoration: none;
+}
+
+.left-ul {
 	float: left;
-	margin-top:50px;
+}
+
+.left-ul li {
+	float: left;
+	border-bottom: none;
+	line-height: 30px;
+}
+
+.title-img {
+	padding-top: 30px;
+}
+
+.title-img img {
+	width: 1000px;
+	height:211px;
+}
+
+.tag-div {
+	width: 1000px;
+	height: 50px;
+	/*position: relative;*/
+	
+}
+.tag-div img {
+	float: left;
+	margin-top: -60px;
+	margin-left: 30px;
+	width: 120px;
+	border: 1px solid #cccccc;
+	padding: 5px;
+	background: white;
+	display: block;
+	position: relative;
+}
+.desc{
+	float:left;
+	margin:15px;
+}
+.desc b{
+	font-size:22px
+}
+.desc span{
+	font-size:15px;
+	text-indent:2em;
+}
+
+
+/*左侧列表*/
+.left {
+	width: 760px;
+	float: left;
+	margin-top: 10px;
+	background:#fff;
 }
 
 .right {
-	margin-top: 20px;
-	width: 268px;
+	margin-top:10px;
+	width: 238px;
 	float: right;
-	border: 1px solid #351c4d;
-	height: 800px;
-	margin-top: 50px;
+	border-left: 0px solid #cbc4c4;
+	background:#fff;
 }
 
 ul {
@@ -37,14 +103,14 @@ li {
 
 .post-list {
 	height: auto;
-	width: 720px;
+	width: 760px;
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-top: 10px;
 }
 
 .list-title {
-	width: 500px;
+	width: 540px;
 	height: auto;
 	float: left;
 }
@@ -136,35 +202,32 @@ footer {
 	margin-bottom: 10px;
 }
 
+/*右侧登录用户信息*/
 .login-user {
-	width: auto;
-	height: 150px;
+	padding:20px;
 }
 
 .login-user img {
+	float: left;
 	width: 100px;
+	border: 1px solid #878484;
+	padding:3px;
+	background:white;
 }
 
-/*顶部导航栏*/
-.head{
-	width:1002px;
-	height:30px;
-	background:#347fdb;
-	border-radius:1px;
-	position:fixed;
-}
-.head a{
-	color:white;
-	text-decoration:none;
-}
-.left-ul{
+.login-user-name{
+	margin-top:15px;
+	margin-left:5px;
 	float:left;
+	width:90px;
+	height:40px;
+	text-align:center;
 }
-.left-ul li{
-	float:left;
-	border-bottom:none;
-	line-height:30px;
-}
+
+/*.user-area a:hover{
+	鼠标悬浮下拉图标变换
+	background:url(/Resource/narrow.png) no-repeat 0px 9px;
+}*/
 .left-ul li a {
 	text-align:center;
 	width:100px;

@@ -11,8 +11,10 @@
 	{
 		com = new CommunityDataAccess().GetCommunityByID(1);
 		<script>
+			@*
 			var comname = @com.CommunityName;
 			document.getElementById("community-name").innerHTML = comname + "";
+			*@
 		</script>
 	}
 	else
@@ -42,9 +44,6 @@
 	<script src="~/Scripts/bootstrap.js"></script>
 	<link href="~/Content/Index.css" rel="stylesheet" />
 	<script type="text/javascript">
-		//$(document).ajaxComplete(function (event, request, setttings) {
-		//	alert(event.detail + "---" + request.status + "---" + setttings.url);
-		//});
 		$(document).ready(function () {
 			$(".post-list").hover(function () {
 				this.style.background = "#F0FFFF";
@@ -89,9 +88,10 @@
 			$(".user-area").hover(function () {
 				$(this).children("ul").toggle();
 			});
-			$(".down-ul").mouseleave(function () {
-				document.getElementById("down-ul").style.visibility = "hidden";
-			});
+			//$(".down-ul").mouseleave(function () {
+			//	document.getElementById("down-ul").style.visibility = "hidden";
+
+			//});
 
 			function subcontent(hasPicture,PicPath) {
 				var title = $("#post-title").val();
@@ -105,6 +105,15 @@
 					valid = valid - 1;
 					alert("话题不能为空或内容太少，不得少于3个字符");
 				}
+				if (title.trim().length > 100) {
+					valid = valid - 1;
+					alert("标题过长！");
+				}
+				if (content.trim().len > 300) {
+					valid = valid - 1;
+					alert("内容太长，请修改！");
+				}
+
 				if (valid == 2) {
 					var blank = "blank";
 					@{
@@ -159,14 +168,24 @@
 <body>
 	<header class="head">
 		<ul class="left-ul">
-			<li><a href="#" >首页</a></li>
-			<li><a href="#" >综合区</a></li>
-			<li><a href="#" >电子爱好区</a></li>
-			<li><a href="#" >文学交流区</a></li>
+			<li><a href="/Index/Index" >首页</a></li>
+			<li><a href="/Index/Index?CMT=1" >综合区</a></li>
+			<li><a href="/Index/Index?CMT=2" >电子爱好区</a></li>
+			<li><a href="/Index/Index?CMT=3" >文学交流区</a></li>
 		</ul>
 		<ul class="right-ul">
 			<li class="user-area">
-				<a href="#" >意外之外</a>
+				@{ 
+					if (Request.Cookies["LoginUser"] != null)
+					{
+						User us = new UserDataAccess().GetUserByID(Request.Cookies["LoginUser"].Value);
+						<a href="/UserData/UserPage">@us.NickName</a>
+					}
+					else
+					{
+						<a href='/Login/LoginIndex'>现在登录</a>
+					}
+				}
 				<ul id="down-ul">
 					<li><a href="#" >我的发言</a></li>
 					<li><a href="#" id="sign-out">退出</a></li>
@@ -174,10 +193,29 @@
 			</li>
 		</ul>
 	</header>
+	<div class="title-img">
+		<img src="~/Resource/titleimg.png" />
+	</div>
+	<div class="tag-div">
+		@*<div>*@
+			<img src="@com.HeadPicPath" />
+			<div class="desc">
+				<b class="com-name">@com.CommunityName</b>
+				<span class="com-desc">@com.Description</span>
+			</div>
+		@*</div>*@
+	</div>
+	<div style="clear:both"></div>
 	<div class="left" role="tab">
 		<ul>
 			@{
-				var posts = new PostDataAccess().GetPostsByCommunityID(com.CommunityID);
+				var pageind = Request.Params["page"];
+				var pageindex = 1;
+				if (pageind != null)
+				{
+					pageindex = int.Parse(pageind.ToString());
+				}
+				var posts = new PostDataAccess().GetPostsByCommunityID(com.CommunityID,pageindex,4);
 				if (posts != null)
 				{
 					foreach (var item in posts)
@@ -213,35 +251,50 @@
 		</ul>
 	</div>
 	<div class="right" role="article">
+		<div>
+			<!--显示版主信息-->
+			
+		</div>
 		<div class="login-user">
-			<img src="~/Resource/defaulthead.jpg" />
-			<div class="login-user-name" id="login-user-name">
-				
-				@{
-					if (Request.Cookies["LoginUser"] != null)
-					{
-						User us = new UserDataAccess().GetUserByID(Request.Cookies["LoginUser"].Value) ;
-						@us.NickName;
-						<button id="sign-out">登出</button>
-					}
-					else
-					{
-						<a href='/Login/LoginIndex'>登录</a>
-					}
-				}
+			<!--显示登录用户信息-->
+			<img src="~/Resource/head.jpg" />
+			<div class="login-user-name" >
+				<a href="/UserData/UserPage">没有·神的过往</a>
 			</div>
+			<div style="clear:both"></div>
 		</div>
 	</div>
 	<div style="clear:both"></div>
 	<div class="pagenumber">
 		<ul class="pagination">
-			<li><a href="#">&laquo;</a></li>
+			@{
+				var number = new PostDataAccess().GetPostCountByCommunityID(com.CommunityID);
+				//alg
+				/*
+				 <5   1,2,3...  index--light
+				 >5   1,2,3...  index--light
+				 */
+				if (number/4 <= 5)
+				{
+					var str = "/Index/Index?CMT=" + com.CommunityID;
+					for (int i = 1; i <= number/4; i++)
+					{
+						var para = str + "&page=" + i.ToString();
+						<li><a href="@para">@i</a></li>
+					}
+				}
+				else
+				{
+					//页数大于5页，算法设计显示排版
+				}
+			}
+			@*<li style="background:#ff6a00"><a href="#">&laquo;</a></li>
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
 			<li><a href="#">4</a></li>
 			<li><a href="#">5</a></li>
-			<li><a href="#">&raquo;</a></li>
+			<li><a href="#">&raquo;</a></li>*@
 		</ul><br>
 	</div>
 	<div class="reply-container">

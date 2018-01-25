@@ -11,6 +11,7 @@ namespace SchoolBBS.DataAccessLibrary
 	public class CommunityDataAccess
 	{
 		//添加社区
+		// Todo
 		public bool AddCommunity(string communityName,string master)
 		{
 			string sql = string.Format("insert into [Community] values ('{0}',0,'{1}')",communityName,master);
@@ -37,6 +38,8 @@ namespace SchoolBBS.DataAccessLibrary
 					com.CommunityName = dt.Rows[i][1].ToString();
 					com.PostCount = int.Parse(dt.Rows[i][2].ToString());
 					com.CommunityMaster = dt.Rows[i][3].ToString();
+					com.HeadPicPath = dt.Rows[i][4].ToString();
+					com.Description = dt.Rows[i][5].ToString();
 					list.Add(com);
 				}
 				return list;
@@ -58,6 +61,8 @@ namespace SchoolBBS.DataAccessLibrary
 				com.CommunityName = dt.Rows[0][1].ToString();
 				com.PostCount = int.Parse(dt.Rows[0][2].ToString());
 				com.CommunityMaster = dt.Rows[0][3].ToString();
+				com.HeadPicPath = dt.Rows[0][4].ToString();
+				com.Description = dt.Rows[0][5].ToString();
 				return com;
 			}
 			else

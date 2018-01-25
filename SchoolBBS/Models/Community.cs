@@ -16,6 +16,8 @@ namespace SchoolBBS.Models
 		private string communityName;
 		private int postCount;
 		private string communityMaster;
+		private string headPicPath;
+		private string description;
 
 		public int CommunityID
 		{
@@ -39,6 +41,18 @@ namespace SchoolBBS.Models
 		{
 			get { return communityMaster; }
 			set { communityMaster = value; }
+		}
+
+		public string HeadPicPath
+		{
+			get { return headPicPath; }
+			set { headPicPath = value; }
+		}
+
+		public string Description
+		{
+			get { return description; }
+			set { description = value; }
 		}
 	}
 }
