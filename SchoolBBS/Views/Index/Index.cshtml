@@ -215,7 +215,7 @@
 				{
 					pageindex = int.Parse(pageind.ToString());
 				}
-				var posts = new PostDataAccess().GetPostsByCommunityID(com.CommunityID,pageindex,4);
+				var posts = new PostDataAccess().GetPostsByCommunityID(com.CommunityID,pageindex,10);
 				if (posts != null)
 				{
 					foreach (var item in posts)
@@ -269,15 +269,20 @@
 		<ul class="pagination">
 			@{
 				var number = new PostDataAccess().GetPostCountByCommunityID(com.CommunityID);
-				//alg
-				/*
-				 <5   1,2,3...  index--light
-				 >5   1,2,3...  index--light
-				 */
-				if (number/4 <= 5)
+				var pagesize = 10;
+				if (number % pagesize == 0)
 				{
-					var str = "/Index/Index?CMT=" + com.CommunityID;
-					for (int i = 1; i <= number/4; i++)
+					number = number / pagesize;
+				}
+				else
+				{
+					number = (number / pagesize) + 1;
+				}
+				var str = "/Index/Index?CMT=" + com.CommunityID;
+				if (number <= 5)
+				{
+
+					for (int i = 1; i <= number; i++)
 					{
 						var para = str + "&page=" + i.ToString();
 						<li><a href="@para">@i</a></li>
@@ -285,7 +290,42 @@
 				}
 				else
 				{
-					//页数大于5页，算法设计显示排版
+					var pagenum = Request.Params["page"];
+					var index = 1;
+					if (pagenum != null)
+					{
+						index = int.Parse(pagenum.ToString());
+					}
+					var parastart = str + "&page="+1.ToString();
+					var paraend = str + "&page=" + number.ToString();
+
+					<li><a href="@parastart">首页</a></li>
+					if (index >= 1 && index <= 3)
+					{
+						for (int i = 1; i <= index + 2; i++)
+						{
+							var para = str + "&page=" + i.ToString();
+							<li><a href="@para">@i</a></li>
+						}
+					}
+					if (index > 3 && index < number - 2)
+					{
+						for (int i = index - 2; i <= index + 2; i++)
+						{
+							var para = str + "&page=" + i.ToString();
+							<li><a href="@para">@i</a></li>
+						}
+					}
+					if (index <= number && index >= number - 2)
+					{
+						for (int i = number-5; i <= number; i++)
+						{
+							var para = str + "&page=" + i.ToString();
+							<li><a href="@para">@i</a></li>
+						}
+					}
+					<li><a href="@paraend">尾页</a></li>
+					//lastPage
 				}
 			}
 			@*<li style="background:#ff6a00"><a href="#">&laquo;</a></li>

@@ -78,8 +78,8 @@ namespace SchoolBBS.DataAccessLibrary
 		//获得帖子集合! n 2
 		public List<Post> GetPostsByCommunityID(int comID,int pageindex,int pagesize)
 		{
-			string sql = string.Format("select top {0} * from [Post] where postID not in (select top {1} postID from [Post])" +
-				" and community = {2}",pagesize,pagesize*(pageindex-1),comID);
+			string sql = string.Format("select top {0} * from [Post] where postID not in (select top {1} postID from [Post] where community = '{2}')" +
+				" and community = {3}",pagesize,pagesize*(pageindex-1),comID,comID);
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
 			if (dt.Rows.Count > 0)
 			{
