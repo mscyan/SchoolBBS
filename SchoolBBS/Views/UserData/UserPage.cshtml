@@ -2,17 +2,181 @@
 @{
     Layout = null;
 }
-
+@using SchoolBBS.Models;
+@using SchoolBBS.DataAccessLibrary;
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>UserPage</title>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<style>
+		body{
+			width:1000px;
+			margin:0px auto;
+		}
+		header img{
+			width:1000px;
+		}
+		.user-desc {
+			width: 1000px;
+			height: 80px;
+			background: #F5F7FA;
+			position:relative;
+			/*margin-top:10px;*/
+		}
+		.user-desc img {
+			float: left;
+			margin-top: -60px;
+			margin-left: 30px;
+			width: 120px;
+			border: 1px solid #cccccc;
+			padding: 5px;
+			background: white;
+			display: block;
+			position: relative;
+			border-radius:2px;
+		}
+		.user-area{
+			float:left;
+			padding-left:10px;
+		}
+		.user-name {
+			font-family: 'Microsoft YaHei';
+			font-size: 18px;
+			height: 26px;
+			line-height: 26px;
+			margin-top: 10px;
+			overflow: hidden;
+		}
+		.sign-in-time,.post-count{
+			font-size:13px;
+			color:#808080;
+		}
+		.settings{
+			float:right;
+			font-size:12px;
+			margin:5px;
+		}
+		.reply-title {
+			margin-top: 10px;
+			width: 130px;
+			height: 30px;
+			background: #fff;
+			padding-left:0px;
+		}
+		.reply-title div{
+			height:30px;
+			font-size:18px;
+			width:120px;
+			margin:0px;
+			background:#fff;
+			border-bottom:0px solid black;
+			line-height:30px;
+			text-align:center;
+		}
+		article ul{
+			padding:0px;
+		}
+		article ul li{
+			list-style:none;
+			width:1000px;
+			height:70px;
+		}
+		article{
+			/*background:#e9f8f6;*/
+		}
+		article ul li img{
+			width:50px;
+			float:left;
+			border:1px solid white;
+			margin:8px;
+			border-radius:0px;
+		}
+		.post-list{
+			float:left;
+			margin-top:7px;
+		}
+		.post-title{
+			/*回复标题*/
+			font-size:small;
+			overflow:hidden;
+			width:830px;
+			height:17px;
+		}
+		.reply-content {
+			/*回复内容*/
+			font-size: 14px;
+			width: 830px;
+			overflow: hidden;
+			line-height:20px;
+			height:20px;
+		}
+		.reply-content span{
+			color:#808080;
+			font-size:12px;
+		}
+		.reply-time{
+			/*回复时间*/
+			font-size:13px;
+			color:#717070;
+		}
+	</style>
 </head>
 <body>
-    <div> 
-		个人信息页面
-    </div>
+    <header>
+		<img src="~/Resource/usertitle.png" />
+	</header>
+	@{ 
+		var loginuser = new User() ;
+		if (Request.Cookies["loginuser"].Value!=null)
+		{
+			loginuser = new UserDataAccess().GetUserByID(Request.Cookies["loginuser"].Value);
+		}
+		loginuser = loginuser as User;
+	}
+	<div class="user-desc">
+		<img src="~/Resource/head.jpg"/>
+		<div class="user-area">
+			<div class="user-name">@loginuser.NickName</div>
+			<span class="sign-in-time">注册时间：@loginuser.RegisterTime</span>
+			<span class="post-count">发言数：29</span>
+		</div>
+		<div class="settings"><a href="#">设置</a></div>
+	</div>
+	<div style="clear:both;"></div>
+	<article>
+		<div class="reply-title">
+			<div>我的发言记录</div>
+		</div>
+		<ul>
+			@{
+				var replys = new ReplyDataAccess().GetCertainReplysByUserID(loginuser.UserNumberID, 5);
+				if (replys == null)
+				{
+					<li>您还没有发言</li>
+				}
+				else
+				{
+					foreach (var item in replys)
+					{
+						var hf = "/Post/PostPage?ID=" + item.ReplyOfPost.ToString();
+						var title = new PostDataAccess().GetPostByID(item.ReplyOfPost).Title;
+						var path = new UserDataAccess().GetUserByID(item.ReplyUser).HeadPicPath;
+						<li>
+							<img src="~/Resource/head.jpg" />
+							<div class="post-list">
+								<div class="post-title"><a href="@hf">@title</a></div>
+								<div class="reply-content"><span>回复：</span>@item.ReplyContent</div>
+								<div class="reply-time">@item.ReplyTime</div>
+							</div>
+						</li>
+					}
+				}
+			}
+		</ul>
+		<div style="clear:both;"></div>
+	</article>
 </body>
 </html>

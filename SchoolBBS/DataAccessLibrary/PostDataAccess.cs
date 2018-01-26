@@ -68,6 +68,7 @@ namespace SchoolBBS.DataAccessLibrary
 				return false;
 		}
 
+		//获取社区内所有帖子数量
 		public int GetPostCountByCommunityID(int comID)
 		{
 			string sql = string.Format("select Count(*) from [Post] where community = {0}", comID);
@@ -75,7 +76,7 @@ namespace SchoolBBS.DataAccessLibrary
 			return int.Parse(dt.Rows[0][0].ToString());
 		}
 
-		//获得帖子集合! n 2
+		//根据所在社区/每页数量/页数 获得帖子集合
 		public List<Post> GetPostsByCommunityID(int comID,int pageindex,int pagesize)
 		{
 			string sql = string.Format("select top {0} * from [Post] where postID not in (select top {1} postID from [Post] where community = '{2}')" +
@@ -119,6 +120,6 @@ namespace SchoolBBS.DataAccessLibrary
 		}
 
 
-		//修改帖子内容（是否要做）
+		//修改帖子内容（是否要做）不需要做
 	}
 }

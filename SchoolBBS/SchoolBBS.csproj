@@ -150,6 +150,7 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReplyController.cs" />
     <Compile Include="Controllers\UserDataController.cs" />
+    <Compile Include="DataAccessLibrary\BackSystemController.cs" />
     <Compile Include="DataAccessLibrary\CommunityDataAccess.cs" />
     <Compile Include="DataAccessLibrary\LogDataAccess.cs" />
     <Compile Include="DataAccessLibrary\PostDataAccess.cs" />
@@ -176,6 +177,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resource\03780_riffelsee_3440x1440.jpg" />
     <Content Include="Resource\33.jpg" />
     <Content Include="Resource\2018_1_2_Bing_en-IN.jpg" />
     <Content Include="Resource\356497-106.jpg" />
@@ -189,6 +191,7 @@
     <Content Include="Resource\postback.png" />
     <Content Include="Resource\titleimg.png" />
     <Content Include="Resource\zzr.jpg" />
+    <Content Include="Resource\usertitle.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -324,6 +327,7 @@
     <Content Include="Scripts\Umeditor\utf8-asp\third-party\mathquill\font\Symbola.woff" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\UserData\UserPage.cshtml" />
+    <Content Include="Views\BackSystem\BackSystemIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

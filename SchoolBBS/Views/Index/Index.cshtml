@@ -88,10 +88,6 @@
 			$(".user-area").hover(function () {
 				$(this).children("ul").toggle();
 			});
-			//$(".down-ul").mouseleave(function () {
-			//	document.getElementById("down-ul").style.visibility = "hidden";
-
-			//});
 
 			function subcontent(hasPicture,PicPath) {
 				var title = $("#post-title").val();
@@ -255,14 +251,24 @@
 			<!--显示版主信息-->
 			
 		</div>
-		<div class="login-user">
-			<!--显示登录用户信息-->
-			<img src="~/Resource/head.jpg" />
-			<div class="login-user-name" >
-				<a href="/UserData/UserPage">没有·神的过往</a>
-			</div>
-			<div style="clear:both"></div>
-		</div>
+		@{
+			if (Request.Cookies["loginuser"] != null)
+			{
+				var user = new UserDataAccess().GetUserByID(Request.Cookies["loginuser"].Value);
+
+				<div class="login-user">
+					<img src="@user.HeadPicPath" />
+					<div class="login-user-name">
+						<a href="/UserData/UserPage">@user.NickName</a>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+			}
+			else
+			{
+				<div style="height:60px;font-size:20px;text-align:center;padding-top:15px;">请登录！</div>
+			}
+		}
 	</div>
 	<div style="clear:both"></div>
 	<div class="pagenumber">
@@ -349,7 +355,8 @@
 
 	</div>
 	<footer>
-		天津农学院 | 校园论坛
+		<span><a href="#">天津农学院官网</a></span>
+		<span><a href="/BackSystem/BackSystemIndex"> 系统后台</a></span>
 	</footer>
 	<script type="text/javascript">
 		//实例化编辑器

@@ -72,9 +72,9 @@ namespace SchoolBBS.DataAccessLibrary
 		}
 
 		//获取某个用户发表的回复的集合
-		public List<Reply> GetReplysByUserID(string userNumber)
+		public List<Reply> GetCertainReplysByUserID(string userNumber,int replyCount)
 		{
-			string sql = string.Format("select * from [Reply] where replyUser = '{0}' and isdeleted = 0", userNumber);
+			string sql = string.Format("select top {0} * from [Reply] where replyUser = '{1}' and isdeleted = 0", replyCount, userNumber);
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
 			if (dt.Rows.Count > 0)
 			{
