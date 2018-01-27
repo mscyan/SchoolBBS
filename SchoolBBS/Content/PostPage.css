@@ -1,16 +1,17 @@
 ﻿html {
 	/*background-color: #114e52;*/
-	background-image: url(/Resource/backimg.jpg);
+	/*background-image: url(/Resource/backimg.jpg);*/
 	/*background-color: rgb(27,40,56);*/
-	/*background-color:#fff;*/
+	background-color:#fff;
+
 }
 
 body {
 	width: 1000px;
 	height: 800px;
 	margin: 0px auto;
-	background-image: url(/Resource/backimg.jpg);
-	/*background-color: rgb(27,40,56);*/
+	/*background-image: url(/Resource/backimg.jpg);*/
+	background-color: #e3f1f5;
 }
 
 article {
@@ -146,7 +147,6 @@ footer {
 header {
 	width: 960px;
 	height: 150px;
-	margin-top: 20px;
 	margin-left: 20px;
 	margin-right: 20px;
 	background-color: white;
@@ -177,7 +177,7 @@ content {
 	width: 230px;
 	height: auto;
 	border-radius: 2px;
-	background-color: rgba(24, 171, 177, 0.77);
+	background-color: #fff;
 	float: left;
 	margin-left: 20px;
 	margin-top: 20px;
