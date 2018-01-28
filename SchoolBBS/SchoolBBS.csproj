@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BackSystemController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -150,7 +151,6 @@
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ReplyController.cs" />
     <Compile Include="Controllers\UserDataController.cs" />
-    <Compile Include="DataAccessLibrary\BackSystemController.cs" />
     <Compile Include="DataAccessLibrary\CommunityDataAccess.cs" />
     <Compile Include="DataAccessLibrary\LogDataAccess.cs" />
     <Compile Include="DataAccessLibrary\PostDataAccess.cs" />
@@ -328,6 +328,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\UserData\UserPage.cshtml" />
     <Content Include="Views\BackSystem\BackSystemIndex.cshtml" />
+    <Content Include="Views\BackSystem\CommunityManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

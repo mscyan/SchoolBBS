@@ -9,10 +9,108 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>系统后台</title>
+	<style>
+		html,body{
+			padding:0px;
+			margin:0px;
+			width:100%;
+			height:100%;
+			background:#3D464D;
+		}
+		header{
+			width:100%;
+			margin:0px auto;
+			height:60px;
+			background:#0094ff;
+			color:white;
+			overflow:hidden;
+		}
+		header .main-title{
+			margin-left:20px;
+			line-height: 60px;
+			font-size: 20px;
+			text-indent: 2em;
+		}
+		header .admin-area{
+			float:right;
+		}
+		header .admin-area img{
+			float:left;
+			border-radius:20px;
+			width:40px;
+			margin-top:10px;
+		}
+		header .user-name {
+			float: left;
+			line-height: 60px;
+			width:110px;
+			padding-left:5px;
+			overflow:hidden;
+		}
+		.left {
+			float: left;
+			width: 200px;
+			background: #3D464D;
+			color: #ADAFB2;
+		}
+		.left ul{
+			margin:0px;
+			padding:0px;
+			padding-top:20px;
+		}
+		.left li{
+			list-style:none;
+			height:38px;
+			text-align:center;
+			font-size:16px;
+			line-height:38px;
+		}
+		article {
+			margin-top: 20px;
+			overflow: hidden;
+		}
+		article iframe{
+			width:100%;
+
+			background:#ADAFB2;
+		}
+	</style>
+	<script>
+		function changeFrameHeight() {
+			var ifm = document.getElementById("myiframe");
+			ifm.height = document.documentElement.clientHeight - 90;
+		}
+		window.onresize = function () {
+			changeFrameHeight();
+		}
+
+		var f = document.getElementById("myiframe");
+		
+	</script>
 </head>
 <body>
-    <div> 
-		系统后台
-    </div>
+    <header>
+		<!--顶部-->
+		<span class="main-title">
+			天津农学院校园论坛后台管理系统
+		</span>
+		<div class="admin-area">
+			<img src="~/Resource/head.jpg"/>
+			<div class="user-name">没有·神的过往</div>
+		</div>
+	</header>
+	<div class="left">
+		<ul>
+			<li><b>后台管理</b></li>
+			<li>社区管理</li>
+			<li>帖子管理</li>
+			<li>回复管理</li>
+			<li>用户管理</li>
+			<li><b>日志</b></li>
+		</ul>
+	</div>
+	<article class="right">
+		<iframe id="myiframe" onload="changeFrameHeight()"  style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/CommunityManage"></iframe>
+	</article>
 </body>
 </html>
