@@ -329,6 +329,10 @@
     <Content Include="Views\UserData\UserPage.cshtml" />
     <Content Include="Views\BackSystem\BackSystemIndex.cshtml" />
     <Content Include="Views\BackSystem\CommunityManage.cshtml" />
+    <Content Include="Views\BackSystem\PostManage.cshtml" />
+    <Content Include="Views\BackSystem\WelcomePage.cshtml" />
+    <Content Include="Views\BackSystem\ReplyManage.cshtml" />
+    <Content Include="Views\BackSystem\UserManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

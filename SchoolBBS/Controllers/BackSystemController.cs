@@ -33,9 +33,15 @@ namespace SchoolBBS.Controllers
 		} 
 
 		//用户管理界面
-		public ActionResult UserManege()
+		public ActionResult UserManage()
 		{
 			return View();
 		}
-    }
+
+		public ActionResult WelcomePage()
+		{
+			return View();
+		}
+
+	}
 }

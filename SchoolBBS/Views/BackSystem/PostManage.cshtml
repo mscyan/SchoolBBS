@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+@using SchoolBBS.Models;
+@using SchoolBBS.DataAccessLibrary;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PostManage</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<script src="~/Scripts/bootstrap.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#my-table").datagrid({
+				
+			})
+		})
+	</script>
+</head>
+<body>
+    <div class="manage-area">
+
+	</div>
+	<table id="my-table" class="table table-striped">
+		<tr>
+			<td></td>
+		</tr>
+		@{ 
+			var posts = new PostDataAccess().GetPostsByCommunityID(1, 1, 10);
+			foreach (var item in posts)
+			{
+				<tr>
+					<td><input type="checkbox" name="post-checkbox" value="@item.PostID" /></td>
+					<td>@item.PostID</td>
+					<td>@item.ContentOverview</td>
+					<td>@item.HasPicture</td>
+					<td>@item.PostTime</td>
+					<td>@item.PostUser</td>
+					<td>@item.ReplyCount</td>
+				</tr>
+			}
+		}
+	</table>
+</body>
+</html>

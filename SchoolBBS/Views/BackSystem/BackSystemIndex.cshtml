@@ -9,11 +9,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>系统后台</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<script src="~/Scripts/bootstrap.js"></script>
+	
 	<style>
 		html,body{
 			padding:0px;
 			margin:0px;
 			width:100%;
+			min-width:1000px;
 			height:100%;
 			background:#3D464D;
 		}
@@ -60,10 +65,14 @@
 		}
 		.left li{
 			list-style:none;
-			height:38px;
+			height:40px;
 			text-align:center;
 			font-size:16px;
-			line-height:38px;
+			line-height:40px;
+		}
+		.left a {
+			text-decoration: none;
+			color:white;
 		}
 		article {
 			margin-top: 20px;
@@ -71,21 +80,42 @@
 		}
 		article iframe{
 			width:100%;
-
-			background:#ADAFB2;
+			background:#fff;
 		}
+		.li-tab{
+			display:block;
+		}
+		.li-tab:hover {
+			background: #4682B4;
+			color:white;
+		}
+		.hov{
+			background:red;
+		}
+
 	</style>
 	<script>
+
 		function changeFrameHeight() {
-			var ifm = document.getElementById("myiframe");
-			ifm.height = document.documentElement.clientHeight - 90;
+			//var ifm = document.getElementById("myiframe");
+			var ifms = document.getElementsByTagName("iframe");
+			for (var i = 0; i < ifms.length; i++) {
+				ifms[i].height = document.documentElement.clientHeight - 90;
+			}
 		}
 		window.onresize = function () {
 			changeFrameHeight();
 		}
 
-		var f = document.getElementById("myiframe");
-		
+		$(document).ready(function () {
+			setTabListStyle();
+		})
+
+		function setTabListStyle() {
+			$(".li-tab").click(function () {
+				// Todo
+			})
+		}
 	</script>
 </head>
 <body>
@@ -102,15 +132,29 @@
 	<div class="left">
 		<ul>
 			<li><b>后台管理</b></li>
-			<li>社区管理</li>
-			<li>帖子管理</li>
-			<li>回复管理</li>
-			<li>用户管理</li>
+			<li><a href="#community" class="li-tab" data-toggle="tab">社区管理</a></li>
+			<li><a href="#post" class="li-tab" data-toggle="tab">帖子管理</a></li>
+			<li><a href="#reply" class="li-tab" data-toggle="tab">回复管理</a></li>
+			<li><a href="#user" class="li-tab" data-toggle="tab">用户管理</a></li>
 			<li><b>日志</b></li>
 		</ul>
 	</div>
-	<article class="right">
-		<iframe id="myiframe" onload="changeFrameHeight()"  style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/CommunityManage"></iframe>
+	<article class="tab-content">
+		<div role="tabpanel" class="tab-pane active">
+			<iframe id="myiframe" onload="changeFrameHeight()" style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/WelcomePage"></iframe>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="community">
+			<iframe id="myiframe" onload="changeFrameHeight()" style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/CommunityManage"></iframe>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="post">
+			<iframe id="myiframe" onload="changeFrameHeight()" style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/PostManage"></iframe>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="reply">
+			<iframe id="myiframe" onload="changeFrameHeight()" style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/ReplyManage"></iframe>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="user">
+			<iframe id="myiframe" onload="changeFrameHeight()" style="padding:1px;" frameborder="0" scrolling="yes" src="/BackSystem/UserManage"></iframe>
+		</div>
 	</article>
 </body>
 </html>
