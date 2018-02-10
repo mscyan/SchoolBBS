@@ -12,9 +12,9 @@ namespace SchoolBBS.DataAccessLibrary
 	{
 		//添加社区
 		// Todo
-		public bool AddCommunity(string communityName,string master)
+		public bool AddCommunity(string communityName,string master,string description)
 		{
-			string sql = string.Format("insert into [Community] values ('{0}',0,'{1}')",communityName,master);
+			string sql = string.Format("insert into [Community] values ('{0}',0,'{1}','','{2}',0)",communityName,master,description);
 			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
 			if (Convert.ToInt32(obj) > 0)
 				return true;
@@ -22,11 +22,36 @@ namespace SchoolBBS.DataAccessLibrary
 				return false;
 		}
 
+		//获取所有社区，管理界面
+		public List<Community> GetAllTheCommunities()
+		{
+			string sql = string.Format("select * from [Community]");
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			if (dt.Rows.Count > 0)
+			{
+				List<Community> list = new List<Community>();
+				for (int i = 0; i < dt.Rows.Count; i++)
+				{
+					Community com = new Community();
+					com.CommunityID = int.Parse(dt.Rows[i][0].ToString());
+					com.CommunityName = dt.Rows[i][1].ToString();
+					com.PostCount = int.Parse(dt.Rows[i][2].ToString());
+					com.CommunityMaster = dt.Rows[i][3].ToString();
+					com.HeadPicPath = dt.Rows[i][4].ToString();
+					com.Description = dt.Rows[i][5].ToString();
+					com.IsDeleted = int.Parse(dt.Rows[i][6].ToString());
+					list.Add(com);
+				}
+				return list;
+			}
+			else
+				return null;
+		}
 
 		//获取所有社区
 		public List<Community> GetAllCommunities()
 		{
-			string sql = string.Format("select * from [Community]");
+			string sql = string.Format("select * from [Community] where isdeleted = 0");
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
 			if (dt.Rows.Count > 0)
 			{

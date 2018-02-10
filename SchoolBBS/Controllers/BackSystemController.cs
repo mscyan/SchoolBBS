@@ -21,6 +21,24 @@ namespace SchoolBBS.Controllers
 		{
 			return View();
 		}
+		public ActionResult AddCom(string com_Name,string desc)
+		{
+			CommunityDataAccess cda = new CommunityDataAccess();
+			var addresult = cda.AddCommunity(com_Name,"1408054113",desc);
+			if (addresult)
+				return Json("success");
+			else
+				return Json("error");
+		}
+		public ActionResult DeleteComByID(int com_id)
+		{
+			CommunityDataAccess cda = new CommunityDataAccess();
+			var deleteresult = cda.DeleteCommunityByID(com_id);
+			if (deleteresult)
+				return Json("success");
+			else
+				return Json("error");
+		}
 
 		//帖子管理界面
 		public ActionResult PostManage()

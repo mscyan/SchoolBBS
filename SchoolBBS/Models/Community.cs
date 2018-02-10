@@ -18,6 +18,7 @@ namespace SchoolBBS.Models
 		private string communityMaster;
 		private string headPicPath;
 		private string description;
+		private int isdeleted;
 
 		public int CommunityID
 		{
@@ -53,6 +54,12 @@ namespace SchoolBBS.Models
 		{
 			get { return description; }
 			set { description = value; }
+		}
+
+		public int IsDeleted
+		{
+			get { return isdeleted; }
+			set { isdeleted = value; }
 		}
 	}
 }

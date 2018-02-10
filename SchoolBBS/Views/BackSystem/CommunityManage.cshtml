@@ -13,6 +13,68 @@
 	<script src="~/Scripts/jquery-1.10.2.js"></script>
 	<script src="~/Scripts/bootstrap.js"></script>
 	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<script>
+		function closeComty(id) {
+			var com_id = id;
+			$.ajax({
+				url: "/BackSystem/DeleteComByID",
+				type: "POST",
+				data: {
+					"com_id": com_id
+				},
+				dataType: "Json",
+				success: function (data) {
+					if (data == "success") {
+						alert("删除成功");
+						window.location.reload();
+					}
+				}
+			})
+		};
+		$(document).ready(function () {
+			$("#add_com_bt").click(function () {
+				var com_name = $("#com_name").val();
+				var com_master = $("#com_master").val();
+				var com_desc = $("#com_desc").val();
+				$.ajax({
+					url: "/BackSystem/AddCom",
+					type: "POST",
+					data: {
+						"com_Name":com_name,
+						"desc":com_desc
+					},
+					dataType: "Json",
+					success: function (data) {
+						if (data == "success") {
+							alert("添加成功");
+							window.location.reload();
+						}
+					}
+				})
+			})
+			$("#add-bt").click(function () {
+				$("#hidden-div").css("visibility","visible");
+			})
+		});
+	</script>
+	<style>
+		#add-bt{
+			margin:10px;
+		}
+		.hidden-div{
+			margin:5px;
+		}
+		.i-text{
+			margin:5px;
+			width:280px;
+		}
+		.input-group input-group-lg{
+			width:300px;
+		}
+		.btn{
+			margin:5px;
+		}
+	</style>
 </head>
 <body>
 	<table class="table table-striped">
@@ -22,9 +84,10 @@
 			<td>社区签名</td>
 			<td>管理员</td>
 			<td>帖子数量</td>
+			<td width="50">选项</td>
 		</tr>
 		@{ 
-			var communities = new CommunityDataAccess().GetAllCommunities();
+			var communities = new CommunityDataAccess().GetAllTheCommunities();
 			foreach (var item in communities)
 			{
 				<tr>
@@ -33,10 +96,29 @@
 					<td>@item.Description</td>
 					<td>@item.CommunityMaster</td>
 					<td>@item.PostCount</td>
+					@{
+						if (item.IsDeleted==0)
+						{
+							<td><input value="关闭" type="button" class="btn btn-block btn-warning" onclick="closeComty(@item.CommunityID)"/></td>
+						}
+						else
+						{
+							<td><input value="已关闭" type="button" class="btn" disabled="disabled" /></td>
+						}
+					}
 				</tr>
 
 			}
 		}
 	</table>
+	<div>
+		<!--按钮放置-->
+		<button id="add-bt" class="btn warning">添加</button>
+	</div>
+	<div id="hidden-div" style="visibility: hidden">
+		<input type="text" id="com_name" placeholder="社区名称" class="i-text form-control" />
+		<input type="text" id="com_desc" placeholder="社区签名" class="i-text form-control" />
+		<button id="add_com_bt" class="btn" value="确认添加">确认添加</button>
+	</div>
 </body>
 </html>
