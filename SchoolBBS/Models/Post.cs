@@ -53,7 +53,8 @@ namespace SchoolBBS.Models
 		private int replyCount;			//回复数量
 		private DateTime lastReplyTime; //最后回复时间
 		private int hasPicture;         //是否有图片
-		private string picturePath;		//图片路径
+		private string picturePath;     //图片路径
+		private int isDeleted;
 
 		public int PostID
 		{
@@ -119,6 +120,12 @@ namespace SchoolBBS.Models
 		{
 			get { return picturePath; }
 			set { picturePath = value; }
+		}
+
+		public int IsDeleted
+		{
+			get { return isDeleted; }
+			set { isDeleted = value; }
 		}
 	}
 }

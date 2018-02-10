@@ -76,10 +76,43 @@ namespace SchoolBBS.DataAccessLibrary
 			return int.Parse(dt.Rows[0][0].ToString());
 		}
 
-		//根据所在社区/每页数量/页数 获得帖子集合
-		public List<Post> GetPostsByCommunityID(int comID,int pageindex,int pagesize)
+		//管理界面获取集合，全部获取
+		public List<Post> GetAllPostsByCommunityID(int comID, int pageindex, int pagesize)
 		{
 			string sql = string.Format("select top {0} * from [Post] where postID not in (select top {1} postID from [Post] where community = '{2}')" +
+				" and community = {3}", pagesize, pagesize * (pageindex - 1), comID, comID);
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			if (dt.Rows.Count > 0)
+			{
+				List<Post> list = new List<Post>();
+				for (int i = 0; i < dt.Rows.Count; i++)
+				{
+					Post post = new Post(
+					int.Parse(dt.Rows[i][0].ToString()),
+					int.Parse(dt.Rows[i][1].ToString()),
+					dt.Rows[i][2].ToString(),
+					dt.Rows[i][3].ToString(),
+					dt.Rows[i][4].ToString(),
+					dt.Rows[i][5].ToString(),
+					DateTime.Parse(dt.Rows[i][6].ToString()),
+					int.Parse(dt.Rows[i][7].ToString()),
+					DateTime.Parse(dt.Rows[i][8].ToString()),
+					int.Parse(dt.Rows[i][9].ToString()),
+					dt.Rows[i][10].ToString()
+					);
+					post.IsDeleted = int.Parse(dt.Rows[i][11].ToString());
+					list.Add(post);
+				}
+				return list;
+			}
+			else
+				return null;
+		}
+
+		//根据所在社区/每页数量/页数 获得帖子集合，只获取未删除的
+		public List<Post> GetPostsByCommunityID(int comID,int pageindex,int pagesize)
+		{
+			string sql = string.Format("select top {0} * from [Post] where postID not in (select top {1} postID from [Post] where community = '{2}') and isdeelted = 0" +
 				" and community = {3}",pagesize,pagesize*(pageindex-1),comID,comID);
 			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
 			if (dt.Rows.Count > 0)

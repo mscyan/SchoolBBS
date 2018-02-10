@@ -2,88 +2,41 @@
 @{
     Layout = null;
 }
-
+@using SchoolBBS.Models;
+@using SchoolBBS.DataAccessLibrary;
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>CommunityManage</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
 	<link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
 	<table class="table table-striped">
-		<caption>条纹表格布局</caption>
-		<thead>
-			<tr>
-				<th>名称</th>
-				<th>城市</th>
-				<th>邮编</th>
-				<th>性别</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Tanmay</td>
-				<td>Bangalore</td>
-				<td>560001</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Sachin</td>
-				<td>Mumbai</td>
-				<td>400003</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Uma</td>
-				<td>Pune</td>
-				<td>411027</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Sachin</td>
-				<td>Mumbai</td>
-				<td>400003</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Uma</td>
-				<td>Pune</td>
-				<td>411027</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Tanmay</td>
-				<td>Bangalore</td>
-				<td>560001</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Sachin</td>
-				<td>Mumbai</td>
-				<td>400003</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Uma</td>
-				<td>Pune</td>
-				<td>411027</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Sachin</td>
-				<td>Mumbai</td>
-				<td>400003</td>
-				<td>M</td>
-			</tr>
-			<tr>
-				<td>Uma</td>
-				<td>Pune</td>
-				<td>411027</td>
-				<td>M</td>
-			</tr>
-		</tbody>
+		<tr>
+			<td>社区ID</td>
+			<td>社区名称</td>
+			<td>社区签名</td>
+			<td>管理员</td>
+			<td>帖子数量</td>
+		</tr>
+		@{ 
+			var communities = new CommunityDataAccess().GetAllCommunities();
+			foreach (var item in communities)
+			{
+				<tr>
+					<td>@item.CommunityID</td>
+					<td>@item.CommunityName</td>
+					<td>@item.Description</td>
+					<td>@item.CommunityMaster</td>
+					<td>@item.PostCount</td>
+				</tr>
+
+			}
+		}
 	</table>
 </body>
 </html>

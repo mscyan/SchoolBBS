@@ -11,14 +11,27 @@
     <meta name="viewport" content="width=device-width" />
     <title>PostManage</title>
 	<script src="~/Scripts/jquery-1.10.2.js"></script>
-	<link href="~/Content/bootstrap.css" rel="stylesheet" />
 	<script src="~/Scripts/bootstrap.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
 	<script>
-		$(document).ready(function () {
-			$("#my-table").datagrid({
-				
+		function deletePost(id){
+			//alert('要删除的帖子的ID是' + id);
+			var post_id = id;
+			$.ajax({
+				url: "/BackSystem/DeletePostByID",
+				type: "POST",
+				data:{
+					"post_id":post_id
+				},
+				dataType: "Json",
+				success: function (data) {
+					if (data == "success") {
+						alert("删除成功");
+						window.location.reload();
+					}
+				}
 			})
-		})
+		}
 	</script>
 </head>
 <body>
@@ -27,23 +40,37 @@
 	</div>
 	<table id="my-table" class="table table-striped">
 		<tr>
-			<td></td>
+			<td>帖子编号</td>
+			<td>标题</td>
+			<td>发表时间</td>
+			<td>发表用户</td>
+			<td>回复数</td>
+			<td width="50">选项</td>
 		</tr>
 		@{ 
-			var posts = new PostDataAccess().GetPostsByCommunityID(1, 1, 10);
+			var posts = new PostDataAccess().GetAllPostsByCommunityID(1, 1, 10);
 			foreach (var item in posts)
 			{
 				<tr>
-					<td><input type="checkbox" name="post-checkbox" value="@item.PostID" /></td>
 					<td>@item.PostID</td>
 					<td>@item.ContentOverview</td>
-					<td>@item.HasPicture</td>
 					<td>@item.PostTime</td>
 					<td>@item.PostUser</td>
 					<td>@item.ReplyCount</td>
+					@{
+						if (item.IsDeleted == 1)
+						{
+							<td><input class="btn" type="button"  disabled="disabled" value="已删除" /> </td>
+						}
+						else
+						{
+							<td><input class="btn btn-block btn-warning" onclick="deletePost(@item.PostID)" type="button" name="post-bt-id" value="删除" /></td>
+						}
+					}
 				</tr>
 			}
 		}
 	</table>
+	<
 </body>
 </html>
