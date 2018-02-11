@@ -12,7 +12,7 @@
     <title>PostPage</title>
 	<script src="~/Scripts/jquery-1.10.2.js"></script>
 	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-	<link href="~/Content/PostPage.css" type="text/css" rel="stylesheet" />
+	@*<link href="~/Content/PostPage.css" type="text/css" rel="stylesheet" />*@
 	<link href="~/Scripts/Umeditor/utf8-asp/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" src="~/Scripts/Umeditor/utf8-asp/third-party/jquery.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="~/Scripts/Umeditor/utf8-asp/umeditor.config.js"></script>
@@ -103,6 +103,228 @@
 			})
 		})
 	</script>
+	<style>
+		html {
+			background-color:#fff;
+			height:auto;
+		}
+
+		body {
+			width: 1000px;
+			height: auto;
+			margin: 0px auto;
+			/*background-image: url(/Resource/backimg.jpg);*/
+			background-color: #e3f1f5;
+		}
+
+		article {
+			width: 750px;
+			height: auto;
+			float: left;
+		}
+
+		article ul {
+			width: 750px;
+			height: auto;
+			padding: 0px;
+		}
+
+		article li {
+			list-style: none;
+			width: 760px;
+			margin-top: 15px;
+			margin-left: 20px;
+			margin-right: 20px;
+			background-color: #f4eeee;
+			border-radius: 3px;
+			overflow: hidden;
+		}
+
+		.headPic {
+			width: 120px;
+			height: 120px;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+			background-color: #f4eeee;
+			overflow: hidden;
+			float: left;
+		}
+
+		.headPic img {
+			width: 80px;
+			margin-top: 20px;
+			margin-left: 20px;
+			margin-bottom: 20px;
+		}
+
+		.reply-container {
+			width: 640px;
+			min-height: 120px;
+			float: left;
+			background-color: #fff;
+		}
+
+		.reply-username {
+			margin-top: 10px;
+			margin-left: 10px;
+			color: #333;
+			font-size: 20px;
+			font-family: '黑体';
+			line-height: 30px;
+			width: 100px;
+			float: left;
+		}
+
+		.tr-level {
+			margin-right: 10px;
+			margin-top: 10px;
+			float: right;
+			font-size: 13px;
+			color: #808080;
+		}
+
+		.reply-time {
+			clear: both;
+			margin-left: 10px;
+			color: #808080;
+			font-size: 13px;
+		}
+
+		.reply-content {
+			margin-left: 10px;
+			margin-top: 3px;
+			margin-right: 10px;
+			padding-bottom: 10px;
+			width: auto;
+			height: auto;
+			background: #fff;
+			font-size: 14px;
+			line-height: 25px;
+			text-indent: 2em;
+			letter-spacing: 1px; /*字间距*/
+		}
+		.reply-img{
+			margin-bottom:10px;
+			margin-left:20px;
+		}
+		.reply-img img {
+			width: 200px;
+		}
+
+		footer {
+			width: 1000px;
+			background-color: #e3f1f5;
+			border-radius: 2px;
+			height: 200px;
+			margin-top:20px;
+			margin-left: 0px;
+			margin-bottom: 20px;
+		}
+
+		.reply-area {
+			background: url(../Resource/postback.png) repeat;
+			margin-top:20px;
+			margin-left:20px;
+			margin-right:20px;
+			width: 920px;
+			height: auto;
+			padding: 20px;
+		}
+
+		.reply-head {
+			font-size: 18px;
+			line-height: 20px;
+			margin-bottom: 5px;
+			margin-left: 5px;
+			margin-top: 5px;
+		}
+
+		#reply-content {
+			margin-top: 20px;
+			width: 750px;
+			resize: none;
+		}
+		#reply-bt {
+			margin-top: 10px;
+		}
+
+		header {
+			width: 960px;
+			height: 150px;
+			margin-left: 20px;
+			margin-right: 20px;
+			background-color: white;
+		}
+
+		.post-area {
+			padding: 0px;
+		}
+
+		/*顶部样式设计*/
+		.title {
+			padding-top:5px;
+			padding-left:10px;
+			font-size: 20px;
+			margin:0px;
+		}
+		.post-time {
+			margin-left:10px;
+			color: #808080;
+			font-size: 12px;
+			line-height: 25px;
+		}
+		.content {
+			margin:10px;
+			font-size: 14px;
+			line-height: 25px;
+			text-indent: 2em;
+			letter-spacing: 1px; /*字间距*/
+		}
+		/*----*/
+
+		.left-info {
+			width: 180px;
+			height: auto;
+			border-radius: 2px;
+			background-color: #fff;
+			float: left;
+			margin-left: 20px;
+			margin-top: 20px;
+		}
+
+		.left-info ul {
+			padding: 0px;
+			list-style: none;
+		}
+
+		.left-info li {
+			font-size: 12px;
+			margin-top: 5px;
+			margin-left: 5px;
+			width: 220px;
+		}
+
+		.left-info li a {
+			text-decoration: none;
+			/*color: white;*/
+		}
+
+		.left-info li a:hover {
+			color: #fafafa;
+		}
+
+		.left-info-head {
+			margin: 10px;
+			/*color: white;*/
+		}
+		#myEditor{
+			background:#fff;
+		}
+		.set-div{
+			background-color:#e3f1f5;
+		}
+
+	</style>
 </head>
 <body>
 	@{
@@ -141,68 +363,74 @@
 			</div>
 		}
     </header>
-	<div class="left-info">
-		<div class="left-info-head">热门帖子</div>
-		@*<ul>
-			<li><a href="#" target="_blank">1.国美回应黄光裕出狱传闻：消息不实，当事人一切正常</a></li>
-			<li><a href="#">2.互联网是怎么一步步成为基础服务的</a></li>
-			<li><a href="#">3.深圳交委：滴滴投放小蓝单车属违规，已多次约谈</a></li>
-			<li><a href="#">4.【IT之家】特斯拉Model X现场实拍：无处不在的科技感</a></li>
-			<li><a href="#">5.网易云音乐自有加密音乐格式曝光：没会员无法播放</a></li>
-			<li><a href="#">6.阔别7年的内裤外穿回归：全新超人首曝造型照</a></li>
-			<li><a href="#">7.LG V30+α有望亮相MWC 2018：骁龙835全面屏，AI加持</a></li>
-			<li><a href="#">8.乐视网或于下周四复牌</a></li>
-			<li><a href="#">9.手机QQ iOS版v7.3.5更新：新增视频通话表情红包</a></li>
-			<li><a href="#">10.新年挂历暗藏40万元内存条，被海关逮个正着</a></li>
-		</ul>*@
-	</div>
-	<article>
-		<ul>
-			@{
-				var list = new ReplyDataAccess().GetReplysByPostID(int.Parse(Request.Params["ID"].ToString()));
-				if (list == null)
-				{
-
+	<div>
+		<div class="left-info">
+			<div style="color:cadetblue;margin:5px;">楼主</div>
+			<div class="left-info-head">
+				@{
+					var un = new UserDataAccess().GetUserByID(post.PostUser);
 				}
-				if (list != null)
-				{
-					foreach (var item in list)
+				<img style="border-radius:50%;width:140px;margin:10px;" src="@un.HeadPicPath" />
+				
+				<div style="width:160px;text-align:center">@un.NickName</div>
+			</div>
+		</div>
+		<article>
+			<ul>
+				@{
+					var list = new ReplyDataAccess().GetReplysByPostID(int.Parse(Request.Params["ID"].ToString()));
+					if (list == null)
 					{
-						<li>
-							<div class="headPic">
-								<img src="~/Resource/head8.png" />
-							</div>
-							<div class="reply-container">
-								<div class="reply-username"><b>@us.NickName</b></div>
-								<div class="tr-level">@item.ReplyFloor 楼</div>
-								<div class="reply-time">@item.ReplyTime</div>
-								<div class="reply-content">@item.ReplyContent</div>
-								@{
-									if (item.HasPicture == 1)
-									{
-										<div class="reply-img">
-											<img src="@item.PicturePath" />
-										</div>
-									}
-								}
-							</div>
-							<div style="clear:both;"></div>
-						</li>
+						<li style="background:#fff">&nbsp;&nbsp;暂无回复！</li>
 					}
+					if (list != null)
+					{
+						foreach (var item in list)
+						{
+							<li>
+								<div class="headPic">
+									@{ 
+										var itemusr = new UserDataAccess().GetUserByID(item.ReplyUser);
+									}
+									<img src="@itemusr.HeadPicPath" />
+								</div>
+								<div class="reply-container">
+									<div class="reply-username"><b>@us.NickName</b></div>
+									<div class="tr-level">@item.ReplyFloor 楼</div>
+									<div class="reply-time">@item.ReplyTime</div>
+									<div class="reply-content">@item.ReplyContent</div>
+									@{
+										if (item.HasPicture == 1)
+										{
+											<div class="reply-img">
+												<img src="@item.PicturePath" />
+											</div>
+										}
+									}
+								</div>
+								<div style="clear:both;"></div>
+							</li>
+											}
+										}
+
 				}
 
-			}
-			
-		</ul>
-	</article>
-	<div style="clear:both;"></div>
+			</ul>
+		</article>
+		<div style="clear:both;"></div>
+	</div>
+	
 	<footer>
-		<div class="reply-area">
-			<div class="reply-head">回复</div>
-			<div class="warning"></div>
-			<br />
-			<script type="text/plain" id="myEditor" style="width:920px;height:240px;"><p>发表的内容</p></script>
-			<input type="button" value="回复" id="reply-bt" class="btn btn-default" />
+		<div class="set-div">
+			<div class="reply-area">
+				<div class="reply-head">回复</div>
+				<div class="warning"></div>
+				<br />
+				<script type="text/plain" id="myEditor" style="width:920px;height:240px;">
+					<p>发表的内容</p>
+				</script>
+				<input type="button" value="回复" id="reply-bt" class="btn btn-default" />
+			</div>
 		</div>
 	</footer>
 	<script type="text/javascript">
