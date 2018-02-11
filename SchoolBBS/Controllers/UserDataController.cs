@@ -13,5 +13,10 @@ namespace SchoolBBS.Controllers
         {
             return View();
         }
+
+		public ActionResult UserInfoPage()
+		{
+			return View();
+		}
     }
 }

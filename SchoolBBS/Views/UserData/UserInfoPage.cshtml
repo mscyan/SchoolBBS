@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = null;
+}
+@using SchoolBBS.Models;
+@using SchoolBBS.DataAccessLibrary;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>修改个人信息</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<style>
+		html{
+			background:#dff;
+		}
+		body{
+			width:1000px;
+			margin:0px auto;
+			/*background:#dff;*/
+		}
+		header{
+			background:url(/Resource/info-head.png) no-repeat;
+			background-size:contain;
+			width:1000px;
+			/*height:270px;*/
+			height:270px;
+		}
+		.user-head{
+			width:120px;
+			/*border:1px solid white;*/
+			margin:0px auto;
+			padding-top:80px;
+		}
+		.user-head img{
+			border-radius:50%;
+			margin:0px 12px;
+			/*border:0px solid rgba(161, 161, 161, 0.46);*/
+			width:90px;
+			padding:4px;
+			background:rgba(191, 225, 249, 0.59);
+			align-content:center;
+		}
+		.user-name{
+			width:120px;
+			text-align:center;
+			overflow:hidden;
+			color:white;
+			font-size:20px;
+		}
+		.basic-title{
+			line-height:30px;
+			font-size:15px;
+		}
+		.user-info{
+			margin-left:20px;
+			font-size:14px;
+		}
+		.left-td{
+			color:#585858;
+			font-size:14px;
+			width:80px;
+			height:25px;
+		}
+		.save{
+			border:0px;
+			background:#2ca1d5;
+			border-radius:5px;
+			width:58px;
+			height:26px;
+			color:white;
+			line-height:26px;
+		}
+	</style>
+</head>
+<body>
+	@{
+		var loginuser = new User();
+		if (Request.Cookies["loginuser"].Value != null)
+		{
+			loginuser = new UserDataAccess().GetUserByID(Request.Cookies["loginuser"].Value);
+		}
+		loginuser = loginuser as User;
+	}
+	<header>
+		<div class="user-head">
+			<img src="@loginuser.HeadPicPath"/>
+			<div class="user-name">@loginuser.NickName</div>
+		</div>
+	</header>
+
+    <div class="user-info"> 
+		<div class="basic-title"><b>基本信息</b></div>
+		<table>
+			<tr>
+				<td class="left-td">学号/工号：</td>
+				<td>@loginuser.UserNumberID</td>
+			</tr>
+			<tr>
+				<td class="left-td">昵称：</td>
+				<td>@loginuser.NickName</td>
+			</tr>
+			<tr>
+				<td class="left-td">头像</td>
+				<td><img src="@loginuser.HeadPicPath"/></td>
+			</tr>
+			<tr>
+				<td class="left-td"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="left-td">性别：</td>
+				@{ 
+					string gen = "";
+					if (loginuser.Gender == "m")
+					{
+						gen = "男";
+					}
+					else
+					{
+						gen = "女";
+					}
+				}
+				<td>@gen</td>
+			</tr>
+			<tr>
+				<td class="left-td">年龄：</td>
+				<td>@loginuser.Age</td>
+			</tr>
+		</table>
+		<div class="basic-title"><b>专业信息</b></div>
+		<table>
+			<tr>
+				<td class="left-td">专业</td>
+				<td>@loginuser.SubjectName</td>
+			</tr>
+		</table>
+		<button class="save">保存</button>
+    </div>
+</body>
+</html>

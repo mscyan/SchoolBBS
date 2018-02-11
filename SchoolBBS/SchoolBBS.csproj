@@ -187,6 +187,7 @@
     <Content Include="Resource\backimg.jpg" />
     <Content Include="Resource\defaulthead.jpg" />
     <Content Include="Resource\head8.png" />
+    <Content Include="Resource\info-head.png" />
     <Content Include="Resource\narrow.png" />
     <Content Include="Resource\postback.png" />
     <Content Include="Resource\titleimg.png" />
@@ -333,6 +334,7 @@
     <Content Include="Views\BackSystem\WelcomePage.cshtml" />
     <Content Include="Views\BackSystem\ReplyManage.cshtml" />
     <Content Include="Views\BackSystem\UserManage.cshtml" />
+    <Content Include="Views\UserData\UserInfoPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
