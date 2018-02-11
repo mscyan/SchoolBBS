@@ -22,6 +22,35 @@ namespace SchoolBBS.DataAccessLibrary
 				return false;
 		}
 
+		//获取所有帖子
+		public List<Reply> GetReplys(int pageindex, int pagesize)
+		{
+			string sql = string.Format("select top {0} * from [Reply] where replyID not in (select top {1} replyID from [Reply])", 
+				pagesize, pagesize * (pageindex - 1)) ;
+			DataTable dt = SqlManager.GetDataTable(SqlManager.connStr, CommandType.Text, sql, null);
+			if (dt.Rows.Count > 0)
+			{
+				List<Reply> list = new List<Reply>();
+				for (int i = 0; i < dt.Rows.Count; i++)
+				{
+					Reply reply = new Reply();
+					reply.ReplyID = int.Parse(dt.Rows[i][0].ToString());
+					reply.ReplyOfPost = int.Parse(dt.Rows[i][1].ToString());
+					reply.ReplyUser = dt.Rows[i][2].ToString();
+					reply.ReplyTime = DateTime.Parse(dt.Rows[i][3].ToString());
+					reply.ReplyFloor = int.Parse(dt.Rows[i][4].ToString());
+					reply.ReplyContent = dt.Rows[i][5].ToString();
+					reply.HasPicture = int.Parse(dt.Rows[i][6].ToString());
+					reply.PicturePath = dt.Rows[i][7].ToString();
+					reply.IsDeleted = int.Parse(dt.Rows[i][8].ToString());
+					list.Add(reply);
+				}
+				return list;
+			}
+			else
+				return null;
+		}
+
 		//获取某个帖子的所有回复集合
 		public List<Reply> GetReplysByPostID(int postID)
 		{

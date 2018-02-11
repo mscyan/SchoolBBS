@@ -61,6 +61,15 @@ namespace SchoolBBS.Controllers
 		{
 			return View();
 		} 
+		public ActionResult DeleteReplyByID(int reply_id)
+		{
+			ReplyDataAccess rda = new ReplyDataAccess();
+			var deleteresult = rda.DeleteReplyByReplyID(reply_id);
+			if (deleteresult)
+				return Json("success");
+			else
+				return Json("error");
+		}
 
 		//用户管理界面
 		public ActionResult UserManage()

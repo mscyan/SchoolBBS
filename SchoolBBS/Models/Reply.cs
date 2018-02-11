@@ -20,6 +20,7 @@ namespace SchoolBBS.Models
 		private string replyContent;
 		private int hasPicture;
 		private string picturePath;
+		private int isDeleted;
 
 		public int ReplyID
 		{
@@ -67,6 +68,12 @@ namespace SchoolBBS.Models
 		{
 			get { return picturePath; }
 			set { picturePath = value; }
+		}
+
+		public int IsDeleted
+		{
+			get { return isDeleted; }
+			set { isDeleted = value; }
 		}
 	}
 }

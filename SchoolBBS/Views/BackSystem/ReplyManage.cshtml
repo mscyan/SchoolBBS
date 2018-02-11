@@ -2,17 +2,94 @@
 @{
     Layout = null;
 }
-
+@using SchoolBBS.Models;
+@using SchoolBBS.DataAccessLibrary;
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ReplyManage</title>
+	<script src="~/Scripts/jquery-1.10.2.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<style>
+		td{
+			text-align:center;
+		}
+		.con{
+			text-align:left;
+		}
+	</style>
+	<script>
+		function deleteReply(id) {
+			var replyID = id;
+			$.ajax({
+				url: "/BackSystem/DeleteReplyByID",
+				type: "POST",
+				data: {
+					"reply_id": replyID
+				},
+				dataType: "Json",
+				success: function (data) {
+					if (data == "success") {
+						alert("删除成功");
+						window.location.reload();
+					}
+				}
+			})
+		}
+	</script>
 </head>
 <body>
-    <div>
-		回复管理页面
-    </div>
+	<table id="my-table" class="table table-striped">
+		<tr>
+			<td align="center" width="70">回复ID</td>
+			<td align="center" >所属帖子编号</td>
+			<td align="center" >回复用户</td>
+			<td align="center"  width="160">回复时间</td>
+			<td align="center"  width="700">回复内容</td>
+			<td align="center"  width="100">是否有图片</td>
+			<td align="center" >选项</td>
+		</tr>
+		@{ 
+			var replys = new ReplyDataAccess().GetReplys(1, 15);
+			foreach (var item in replys)
+			{
+				<tr>
+					<td>@item.ReplyID</td>
+					<td>@item.ReplyOfPost</td>
+					<td>@item.ReplyUser</td>
+					<td>@item.ReplyTime</td>
+					<td class="con">@item.ReplyContent</td>
+					<td>
+						@{ 
+							if (item.HasPicture==1)
+							{
+								<div>有</div>
+							}
+							else
+							{
+								<div>否</div>
+							}
+						}
+					</td>
+					<td>
+						@{
+							if (item.IsDeleted == 0)
+							{
+								<input type="button" value="删除" onclick="deleteReply(@item.ReplyID)" class="btn btn-warning" />
+							}
+							else
+							{
+								//has deleted
+								<input type="button" class="btn" value="已删除" disabled="disabled" />
+							}
+						}
+					</td>
+				</tr>
+			}
+		}
+	</table>
 </body>
 </html>
