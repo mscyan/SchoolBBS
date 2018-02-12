@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SchoolBBS.DataAccessLibrary;
 using SchoolBBS.Models;
+using SchoolBBS.Libs;
 
 namespace SchoolBBS.Controllers
 {
@@ -22,6 +23,8 @@ namespace SchoolBBS.Controllers
 				return Json("nouser");
 			else
 			{
+				title = SensitiveWordFilter.CheckValidity(title);
+				content = SensitiveWordFilter.CheckValidity(content);
 				Post post = new Post(communityID, title, content, postUserID, hasPicture, picPath);
 				PostDataAccess pda = new PostDataAccess();
 				bool addsuccess = pda.AddPost(post);

@@ -30,10 +30,11 @@
 			height:270px;
 		}
 		.user-head{
-			width:120px;
+			width:180px;
 			/*border:1px solid white;*/
 			margin:0px auto;
 			padding-top:80px;
+			padding-left:30px;
 		}
 		.user-head img{
 			border-radius:50%;
@@ -54,8 +55,15 @@
 		.basic-title{
 			line-height:30px;
 			font-size:15px;
+			width:600px;
+			background:url(/Resource/line.png) repeat-x center;
+		}
+		b{
+			background:#fff;
+			padding-right:10px;
 		}
 		.user-info{
+			margin-top:10px;
 			margin-left:20px;
 			font-size:14px;
 		}
@@ -63,18 +71,102 @@
 			color:#585858;
 			font-size:14px;
 			width:80px;
-			height:25px;
+			height:30px;
 		}
-		.save{
+		.middle-td{
+			width:125px;
+		}
+		.middle-td img{
+			width:100px;
+		}
+		.right-td{
+			width:182px;
+		}
+		.bt{
 			border:0px;
-			background:#2ca1d5;
+			background:#2ca1d5;/*button color*/
 			border-radius:5px;
 			width:58px;
-			height:26px;
+			height:28px;
 			color:white;
 			line-height:26px;
+			margin-bottom:30px;
+			margin-right:10px;
+			margin-top:5px;
+		}
+		input{
+			padding-left:3px;
+		}
+		.hid-input{
+			visibility:hidden;
+		}
+		.waring-div{
+			color:red;
+			font-size:12px;
 		}
 	</style>
+	<script>
+		$(document).ready(function () {
+			$("#save-bt").attr('disabled', true);
+			$("#save-bt").css("background", "#ccc");
+
+			$("#alter-bt").click(function () {
+				$(".hid-input").css("visibility", "visible");
+				$("#alter-bt").attr('disabled', true);
+				$("#alter-bt").css("background", "#ccc");
+				$("#save-bt").removeAttr('disabled');
+				$("#save-bt").css("background", "#2ca1d5");
+			});
+
+			$("#save-bt").click(function () {
+				var usr = $("#usr").text();
+				var nick = $("#nickname-input").val();
+				var age = $("#age-input").val();
+				var subject = $("#subject-input").val();
+				var gen = $("input[name='gen']:checked").val();
+				//check validity of input tag
+				var valid = 3;
+				if (nick.trim().length == 0 || nick.trim().length > 20) {
+					valid--;
+					$("#nick-warning").text("昵称不合法，长度应为1-20个字符");
+				}
+				if (age <= 0 || age > 120) {
+					valid--;
+					$("#age-warning").text("年龄范围非法！");
+				}
+				if (subject.trim().length < 1 || subject.trim().length > 20) {
+					valid--;
+					$("#subject-warning").text("专业名长度非法，应为1-20个字符")
+				}
+				if (valid == 3) {
+					$.ajax({
+						url: "/UserData/AlterUserInfo",
+						data: {
+							"usr": usr,
+							"nick": nick,
+							"gen": gen,
+							"age": age,
+							"subject": subject
+						},
+						type:"POST",
+						dataType:"JSON",
+						success:function(data){
+							if (data == "success") {
+								alert("修改成功");
+								window.location.reload();
+							}
+							else {
+								alert("修改失败");
+							}
+						},
+						error:function(){
+							alert("连接异常！请重新登录后重试");
+						}
+					})
+				}
+			});
+		});
+	</script>
 </head>
 <body>
 	@{
@@ -97,25 +189,28 @@
 		<table>
 			<tr>
 				<td class="left-td">学号/工号：</td>
-				<td>@loginuser.UserNumberID</td>
+				<td id="usr" class="middle-td">@loginuser.UserNumberID</td>
 			</tr>
 			<tr>
 				<td class="left-td">昵称：</td>
-				<td>@loginuser.NickName</td>
+				<td class="middle-td">@loginuser.NickName</td>
+				<td class="right-td"><input type="text" id="nickname-input" class="hid-input" placeholder="@loginuser.NickName" /></td>
+				<td><div id="nick-warning" class="waring-div"></div></td>
 			</tr>
 			<tr>
 				<td class="left-td">头像</td>
-				<td><img src="@loginuser.HeadPicPath"/></td>
+				<!--Todo 文件上传，修改图片-->
+				<td class="middle-td"><img src="@loginuser.HeadPicPath"/></td>
 			</tr>
 			<tr>
 				<td class="left-td"></td>
-				<td></td>
+				<td class="middle-td"></td>
 			</tr>
 			<tr>
 				<td class="left-td">性别：</td>
 				@{ 
 					string gen = "";
-					if (loginuser.Gender == "m")
+					if (loginuser.Gender == "M")
 					{
 						gen = "男";
 					}
@@ -124,21 +219,32 @@
 						gen = "女";
 					}
 				}
-				<td>@gen</td>
+				<td class="middle-td">@gen</td>
+				<td>
+					<div class="hid-input">
+						男 <input class="gender" checked="checked" type="radio" value="M" name="gen" />
+						&nbsp;&nbsp;&nbsp;
+						女 <input class="gender" type="radio" value="F" name="gen" />
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<td class="left-td">年龄：</td>
-				<td>@loginuser.Age</td>
+				<td class="middle-td">@loginuser.Age</td>
+				<td class="right-td"><input type="number" id="age-input" placeholder="@loginuser.Age" class="hid-input" /></td>
+				<td><div id="age-warning" class="waring-div"></div></td>
 			</tr>
 		</table>
 		<div class="basic-title"><b>专业信息</b></div>
 		<table>
 			<tr>
 				<td class="left-td">专业</td>
-				<td>@loginuser.SubjectName</td>
+				<td class="middle-td">@loginuser.SubjectName</td>
+				<td class="right-td"><input type="text" id="subject-input" placeholder="@loginuser.SubjectName" class="hid-input" /></td>
+				<td><div id="subject-warning" class="waring-div"></div></td>
 			</tr>
 		</table>
-		<button class="save">保存</button>
+		<button class="bt" id="alter-bt">修改</button><button class="bt" id="save-bt">保存</button>
     </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SchoolBBS.DataAccessLibrary;
 using SchoolBBS.Models;
+using SchoolBBS.Libs;
 
 namespace SchoolBBS.Controllers
 {
@@ -17,6 +18,8 @@ namespace SchoolBBS.Controllers
 			{
 				return Json("您未登录");
 			}
+
+			content = SensitiveWordFilter.CheckValidity(content);
 
 			ReplyDataAccess rda = new ReplyDataAccess();
 			Reply reply = new Reply();

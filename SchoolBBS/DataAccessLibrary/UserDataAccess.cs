@@ -17,9 +17,7 @@ namespace SchoolBBS.DataAccessLibrary
 				userNumber, nickname, password, "N", "M",age, subject, DateTime.Now.ToLocalTime().ToString(),1);
 			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
 			if (Convert.ToInt32(obj) > 0)
-			{
 				return true;
-			}
 			else
 				return false;
 		}
@@ -48,6 +46,7 @@ namespace SchoolBBS.DataAccessLibrary
 				return false;
 		}
 
+		//根据ID获取用户
 		public User GetUserByID(string userNumber)
 		{
 			string sql = string.Format("select * from [User] where [userNumber] = '{0}'", userNumber);
@@ -69,6 +68,17 @@ namespace SchoolBBS.DataAccessLibrary
 			}
 			else
 				return null;
+		}
+
+		//根据用户ID修改用户信息
+		public bool AlterUserInfoByID(string usr, string nick, string gen, int age, string subject)
+		{
+			string sql = string.Format("update [User] set nickname = '{0}',gender = '{1}',age = '{2}',subjectName = '{3}' where userNumber = '{4}'", nick, gen, age, subject, usr);
+			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
+			if (Convert.ToInt32(obj) > 0)
+				return true;
+			else
+				return false;
 		}
 	}
 }
