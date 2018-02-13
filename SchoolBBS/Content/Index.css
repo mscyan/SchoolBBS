@@ -266,3 +266,19 @@ footer {
 #down-ul li a:hover {
 	background: #1154a5;
 }
+
+.declare{ 
+	width:1000px;
+	padding:10px; 
+	background:#fff;
+}
+.dec-title{
+	font-size:16px;
+
+} 
+.dec-content{
+	margin:5px;
+	width:960px;
+	font-size:14px; 
+	text-indent:1em;
+} 

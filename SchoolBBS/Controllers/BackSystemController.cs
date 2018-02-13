@@ -39,6 +39,31 @@ namespace SchoolBBS.Controllers
 			else
 				return Json("error");
 		}
+		public ActionResult AlterDeclareByID(string declare,int com_id)
+		{
+			CommunityDataAccess cda = new CommunityDataAccess();
+			bool alterresult = cda.UpdateDeclareByID(com_id, declare);
+			if (alterresult)
+				return Json("success");
+			else
+				return Json("error");
+		}
+		public ActionResult AlterMasterByID(string master,int com_id)
+		{
+			UserDataAccess uda = new UserDataAccess();
+			bool exist = uda.isUserExist(master);
+			if (exist)
+			{
+				CommunityDataAccess cda = new CommunityDataAccess();
+				bool result = cda.UpdateMasterByID(com_id, master);
+				if (result)
+					return Json("success");
+				else
+					return Json("error");
+			}
+			return Json("error");
+		}
+
 
 		//帖子管理界面
 		public ActionResult PostManage()

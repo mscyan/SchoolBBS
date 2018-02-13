@@ -40,8 +40,8 @@
 					url: "/BackSystem/AddCom",
 					type: "POST",
 					data: {
-						"com_Name":com_name,
-						"desc":com_desc
+						"com_Name": com_name,
+						"desc": com_desc
 					},
 					dataType: "Json",
 					success: function (data) {
@@ -53,9 +53,73 @@
 				})
 			})
 			$("#add-bt").click(function () {
-				$("#hidden-div").css("visibility","visible");
+				$("#hidden-div").css("visibility", "visible");
 			})
 		});
+		function addDeclare(id) {
+			//添加公告
+			$("#post-declare").click(function () {
+				var declare = $("#declare").val();
+				if (declare.trim().length < 1||declare.trim().length>300) {
+					alert("公告长度不合法，应在1-300个字符之间");
+				}
+				else {
+					$.ajax({
+						url: "/BackSystem/AlterDeclareByID",
+						type: "POST",
+						dataType: "JSON",
+						data: {
+							"declare": declare,
+							"com_id":id
+						},
+						success: function (data) {
+							if (data == "success") {
+								alert("发布成功");
+								window.location.reload();
+							}
+							else {
+								alert("Error");
+							}
+						}
+					})
+				}
+			})
+			$("#myModal").modal({
+				keyboard: false
+			});
+		};
+		function alterMaster(id){
+			//Todo
+			$("#alt-master").click(function(){
+				var master = $("#master").val();
+				if(master.trim().length!=10){
+					alert("您输入的账户错误，长度应为10位数字！");
+				}
+				else{
+					$.ajax({
+						url:"/BackSystem/AlterMasterByID",
+						type:"POST",
+						dataType:"JSON",
+						data:{
+							"com_id":id,
+							"master":master
+						},
+						success:function(data){
+							if (data == "success") {
+								alert("修改成功！");
+								window.location.reload();
+							}
+							else {
+								alert("Error");
+							}
+						}
+					})
+				}
+			})
+			$("#myMaster").modal({
+				keyboard: false
+			});
+		}
 	</script>
 	<style>
 		#add-bt{
@@ -74,16 +138,25 @@
 		.btn{
 			margin:5px;
 		}
+		td{
+			text-align:center;
+		}
+		.left-td{
+			text-align:left;
+		}
 	</style>
 </head>
 <body>
 	<table class="table table-striped">
 		<tr>
-			<td>社区ID</td>
-			<td>社区名称</td>
-			<td>社区签名</td>
-			<td>管理员</td>
-			<td>帖子数量</td>
+			<td width="50">社区ID</td>
+			<td width="120">社区名称</td>
+			<td width="200">社区签名</td>
+			<td width="100">管理员</td>
+			<td width="400">公告</td>
+			<td width="80">帖子数量</td>
+			<td width="100">修改管理员</td>
+			<td width="100">添加公告</td>
 			<td width="50">选项</td>
 		</tr>
 		@{ 
@@ -93,9 +166,35 @@
 				<tr>
 					<td>@item.CommunityID</td>
 					<td>@item.CommunityName</td>
-					<td>@item.Description</td>
+					<td class="left-td">@item.Description</td>
 					<td>@item.CommunityMaster</td>
+					<td class="left-td">@item.Declare</td>
 					<td>@item.PostCount</td>
+					<td>
+						@{
+							if (item.IsDeleted == 0)
+							{
+								<button class="btn btn-info" onclick="alterMaster(@item.CommunityID)">修改</button>
+							}
+							else
+							{
+								<button class="btn" disabled="disabled" >修改</button>
+							}
+						}
+					</td>
+					<td>
+						@{ 
+							if (item.IsDeleted == 0)
+							{
+								<input value="添加公告" type="button" class="btn btn-block btn-success" onclick="addDeclare(@item.CommunityID)"/>
+							}
+							else
+							{
+								<input value="添加公告" type="button" class="btn" disabled="disabled" />
+							}
+						}
+					</td>
+					
 					@{
 						if (item.IsDeleted==0)
 						{
@@ -111,6 +210,50 @@
 			}
 		}
 	</table>
+	<div class="modal fade" id="myMaster" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						请输入要任命的管理员的帐号
+					</h4>
+				</div>
+				<div class="modal-body">
+					<input class="form-control" id="master" style="resize:none" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" id="alt-master" class="btn btn-primary">确认</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						添加公告
+					</h4>
+				</div>
+				<div class="modal-body">
+					<textarea class="form-control" id="declare" rows="3" style="resize:none"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" id="post-declare" class="btn btn-primary">确认发布</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<div>
 		<!--按钮放置-->
 		<button id="add-bt" class="btn warning">添加</button>

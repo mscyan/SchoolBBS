@@ -14,7 +14,7 @@ namespace SchoolBBS.DataAccessLibrary
 		// Todo
 		public bool AddCommunity(string communityName,string master,string description)
 		{
-			string sql = string.Format("insert into [Community] values ('{0}',0,'{1}','','{2}',0)",communityName,master,description);
+			string sql = string.Format("insert into [Community] values ('{0}',0,'{1}','','{2}','',0)",communityName,master,description);
 			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
 			if (Convert.ToInt32(obj) > 0)
 				return true;
@@ -39,7 +39,8 @@ namespace SchoolBBS.DataAccessLibrary
 					com.CommunityMaster = dt.Rows[i][3].ToString();
 					com.HeadPicPath = dt.Rows[i][4].ToString();
 					com.Description = dt.Rows[i][5].ToString();
-					com.IsDeleted = int.Parse(dt.Rows[i][6].ToString());
+					com.Declare = dt.Rows[i][6].ToString();
+					com.IsDeleted = int.Parse(dt.Rows[i][7].ToString());
 					list.Add(com);
 				}
 				return list;
@@ -65,6 +66,7 @@ namespace SchoolBBS.DataAccessLibrary
 					com.CommunityMaster = dt.Rows[i][3].ToString();
 					com.HeadPicPath = dt.Rows[i][4].ToString();
 					com.Description = dt.Rows[i][5].ToString();
+					com.Declare = dt.Rows[i][6].ToString();
 					list.Add(com);
 				}
 				return list;
@@ -88,12 +90,35 @@ namespace SchoolBBS.DataAccessLibrary
 				com.CommunityMaster = dt.Rows[0][3].ToString();
 				com.HeadPicPath = dt.Rows[0][4].ToString();
 				com.Description = dt.Rows[0][5].ToString();
+				com.Declare = dt.Rows[0][6].ToString();
 				return com;
 			}
 			else
 			{
 				return null;
 			}
+		}
+
+		//修改管理员
+		public bool UpdateMasterByID(int ID,string userNumber)
+		{
+			string sql = string.Format("update [Community] set [communityMaster] = '{0}' where communityID = '{1}'",userNumber,ID);
+			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
+			if (Convert.ToInt32(obj) > 0)
+				return true;
+			else
+				return false;
+		}
+
+		//修改公告
+		public bool UpdateDeclareByID(int ID,string declare)
+		{
+			string sql = string.Format("update [Community] set [declare] = '{0}' where communityID = '{1}'",declare,ID);
+			object obj = SqlManager.ExecuteNonQuery(SqlManager.connStr, CommandType.Text, sql, null);
+			if (Convert.ToInt32(obj) > 0)
+				return true;
+			else
+				return false;
 		}
 
 		//删除社区（逻辑删除）
